@@ -2,6 +2,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side, NamedSty
 from openpyxl.styles.differential import DifferentialStyle
 from openpyxl.formatting.rule import Rule, DataBarRule
 from openpyxl.chart.label import DataLabelList
+from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.utils import get_column_letter
 
 
@@ -149,7 +150,7 @@ def create_styles(wb, colors=COLORS):
 
     styles['eyebrow'] = NamedStyle(
         name='eyebrow',
-        font=Font(name=FONT_BODY, size=9, bold=True, color=colors['gold']),
+        font=Font(name=FONT_MONO, size=9, color=colors['gold']),
         alignment=Alignment(vertical='center', horizontal='left')
     )
 
@@ -170,7 +171,7 @@ def create_styles(wb, colors=COLORS):
 # SHEET SETUP
 # ============================================================
 
-def setup_sheet(ws, title, colors=COLORS, active_tab=None, subtitle=None):
+def setup_sheet(ws, title, colors=COLORS, active_tab=None, subtitle=None, sections=None):
     # Warm cream visible canvas
     bg = PatternFill(start_color=colors['bg'], end_color=colors['bg'], fill_type='solid')
     for row in ws.iter_rows(min_row=1, max_row=120, min_col=1, max_col=50):
@@ -210,7 +211,7 @@ def setup_sheet(ws, title, colors=COLORS, active_tab=None, subtitle=None):
     add_gold_rule(ws, row=4, start_col=4, end_col=14, colors=colors)
 
     # Sidebar
-    add_sidebar(ws, colors=colors, active_tab=active_tab or ws.title)
+    add_sidebar(ws, colors=colors, active_tab=active_tab or ws.title, sections=sections)
 
 
 def add_gold_rule(ws, row, start_col, end_col, colors=COLORS):
@@ -477,3 +478,110 @@ def run_quality_gate(wb):
             issues.append(f"{ws.title}: title font drifted from brand display font")
 
     return issues
+
+
+# ============================================================
+# DATA VALIDATION HELPERS
+# ============================================================
+
+def add_dropdown(ws, cell_range, options, allow_blank=True):
+    """Inline list dropdown — use for short, fixed option sets (≤ ~8 items)."""
+    joined = ",".join(options)
+    dv = DataValidation(type="list", formula1=f'"{joined}"', allow_blank=allow_blank)
+    ws.add_data_validation(dv)
+    dv.add(cell_range)
+
+
+def add_range_dropdown(ws, cell_range, formula_range, allow_blank=True):
+    """Range-based dropdown — use when options live in a named range or sheet ref."""
+    dv = DataValidation(type="list", formula1=formula_range, allow_blank=allow_blank)
+    ws.add_data_validation(dv)
+    dv.add(cell_range)
+
+
+# ============================================================
+# PRODUCT CATEGORY BLUEPRINTS
+# ============================================================
+
+BLUEPRINTS = {
+    "Annual Budget Spreadsheet": {
+        "tabs": [
+            "Instructions", "Setup", "Bank Accounts", "Recurring Transactions", "Payments",
+            "Variable Transactions", "All-in-One Dashboard", "Annual Totals", "Automated Calendar",
+            "Paycheck Dashboard", "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December",
+            "50/30/20 Dashboard", "Expense Distribution", "Sinking Funds", "Debt Calculator",
+            "Net Worth", "Investment Forecast", "No-Spending Challenge",
+        ],
+        "features": [
+            "Currency dropdowns from Setup",
+            "SUMIF by category",
+            "Monthly auto-totals",
+            "Dashboard with 4+ charts",
+            "Conditional formatting on over-budget items",
+            "Data bars on amounts",
+        ],
+    },
+
+    "Book Tracker": {
+        "tabs": [
+            "Instructions", "Setup", "Book Tracker", "Books Gallery",
+            "Digital Bookshelf", "Reading Calendar", "Wishlist", "All-in-One Dashboard",
+        ],
+        "features": [
+            "Genre/status/rating dropdowns",
+            "COUNTIF and AVERAGEIF stats",
+            "Reading streak tracking",
+            "Goal progress",
+            "Dashboard charts",
+        ],
+    },
+
+    "Wedding Planner": {
+        "tabs": [
+            "Instructions", "Setup", "Save the Date", "Theme", "Dashboard", "Calendar",
+            "Timeline", "Itinerary", "Packing List", "Vendors Choice", "Venue Options",
+            "Budget", "Contact Info", "Guest List", "Seating Plan", "Wedding Party",
+            "Food & Drinks", "Photoshoot", "Photo Gallery", "Music",
+            "Gifts & Thank You", "Honeymoon",
+        ],
+        "features": [
+            "Days-left countdown",
+            "Cross-tab dashboard with 7 charts",
+            "Budget tracking",
+            "Guest list with RSVP and meal dropdowns",
+            "Seating plan grid",
+            "Vendor comparison",
+            "Timeline with priority levels",
+        ],
+    },
+
+    "Fitness Tracker": {
+        "tabs": [
+            "Instructions", "Setup", "Dashboard", "Workout Log", "Meal Planner",
+            "Progress Photos", "Body Measurements", "Goals",
+            "Weekly Summary", "Monthly Summary", "Exercise Library",
+        ],
+        "features": [
+            "Workout tracking",
+            "Meal planning",
+            "Measurement logging",
+            "Goals and summaries",
+            "Dashboard charts",
+        ],
+    },
+
+    "Project Manager": {
+        "tabs": [
+            "Instructions", "Setup", "Dashboard", "Tasks", "Timeline/Gantt",
+            "Team Members", "Budget", "Notes", "Archive",
+        ],
+        "features": [
+            "Task tracking",
+            "Timeline/Gantt view",
+            "Budget tracking",
+            "Team assignments",
+            "Dashboard overview",
+        ],
+    },
+}
