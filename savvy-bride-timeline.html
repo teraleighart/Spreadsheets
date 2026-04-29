@@ -176,7 +176,7 @@ body{font-family:Georgia,'Palatino Linotype',serif;background:var(--cream);color
         <button class="filter-btn" data-filter="overdue">Overdue</button>
       </div>
       <div class="view-group">
-        <button class="view-btn active" data-view="phase">By Phase</button>
+        <button class="view-btn active" data-view="month">By Month</button>
         <button class="view-btn" data-view="date">By Date</button>
       </div>
     </div>
@@ -324,7 +324,7 @@ PHASES.forEach((phase, pi) => {
 // State
 let state = {}; // { [id]: { done: bool, date: string } }
 let currentFilter = 'all';
-let currentView = 'phase';
+let currentView = 'month';
 
 function loadState() {
   try {
@@ -432,7 +432,7 @@ function render() {
     return;
   }
 
-  if (currentView === 'phase') {
+  if (currentView === 'month') {
     PHASES.forEach(phase => {
       const phaseTasks = filtered.filter(t => t.phase === phase.name);
       if (phaseTasks.length === 0) return;
