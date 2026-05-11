@@ -442,6 +442,60 @@ body{
 }
 .sealed-card:hover .sealed-title{color:#c87060}
 
+/* Evidence board page cards (portrait composite images) */
+.evpage-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:20px;
+  align-items:start;
+}
+.evpage-card{
+  background:#0e0c08;
+  border:1px solid #2a2010;
+  border-radius:3px;
+  overflow:hidden;
+  cursor:pointer;
+  text-decoration:none;
+  display:block;
+  transition:border-color .15s,transform .12s,box-shadow .15s;
+  position:relative;
+}
+.evpage-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:#c03020;
+  opacity:0.7;
+}
+.evpage-card:hover{
+  border-color:#c03020;
+  transform:translateY(-3px);
+  box-shadow:0 8px 28px rgba(0,0,0,0.6);
+}
+.evpage-img{
+  width:100%;
+  display:block;
+  object-fit:cover;
+  background:#1a1208;
+  filter:sepia(0.15) brightness(0.92);
+  transition:filter .15s;
+}
+.evpage-card:hover .evpage-img{filter:sepia(0.05) brightness(1.0)}
+.evpage-label{
+  padding:10px 12px 9px;
+  border-top:1px solid #1e1808;
+}
+.evpage-id{
+  font-size:9px;letter-spacing:2px;color:#4a3818;
+  text-transform:uppercase;margin-bottom:4px;
+}
+.evpage-title{
+  font-family:'Special Elite',serif;
+  font-size:11.5px;color:#c8a870;
+  line-height:1.35;
+}
+.evpage-card:hover .evpage-title{color:#e8c890}
+
 /* ── LIGHTBOX ───────────────────────────────────────────── */
 #lightbox{
   display:none;
@@ -575,51 +629,49 @@ body{
 
     <!-- CRIME SCENE PHOTOS -->
     <div class="doc-section">
-      <div class="section-tab tab-photo">⬡ Crime Scene Photographs &nbsp;·&nbsp; 10 items</div>
+      <div class="section-tab tab-photo">⬡ Crime Scene Photographs &nbsp;·&nbsp; 4 photo pages + floor plan</div>
       <hr class="section-rule rule-photo">
-      <div class="photo-grid">
-        <a class="polaroid-card" style="--rot:-1.8deg" href="case_files/photos/ME-0447-CS-01.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-CS-01.png" alt="CS-01">
-          <div class="polaroid-caption">CS-01 · Room Overview</div>
+      <div class="evpage-grid">
+
+        <a class="evpage-card" href="case_files/photos/ME-0447-CS-01-03.jpg" onclick="lightbox(event,this)">
+          <img class="evpage-img" src="case_files/photos/ME-0447-CS-01-03.jpg" alt="Crime Scene Photos CS-01 to CS-03">
+          <div class="evpage-label">
+            <div class="evpage-id">CS-01 / CS-02 / CS-03</div>
+            <div class="evpage-title">Crime Scene — Room, Desk Surface &amp; Decedent</div>
+          </div>
         </a>
-        <a class="polaroid-card" style="--rot:1.2deg" href="case_files/photos/ME-0447-CS-02.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-CS-02.png" alt="CS-02">
-          <div class="polaroid-caption">CS-02 · Desk Surface</div>
+
+        <a class="evpage-card" href="case_files/photos/ME-0447-CS-04-05.jpg" onclick="lightbox(event,this)">
+          <img class="evpage-img" src="case_files/photos/ME-0447-CS-04-05.jpg" alt="Crime Scene Photos CS-04 to CS-05">
+          <div class="evpage-label">
+            <div class="evpage-id">CS-04 / CS-05</div>
+            <div class="evpage-title">Crime Scene — Entry Door &amp; Desk Lamp</div>
+          </div>
         </a>
-        <a class="polaroid-card" style="--rot:-0.8deg" href="case_files/photos/ME-0447-CS-03.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-CS-03.png" alt="CS-03">
-          <div class="polaroid-caption">CS-03 · Decedent / Chair</div>
+
+        <a class="evpage-card" href="case_files/photos/ME-0447-EV-ABC.jpg" onclick="lightbox(event,this)">
+          <img class="evpage-img" src="case_files/photos/ME-0447-EV-ABC.jpg" alt="Evidence Photos EV-A EV-B EV-C">
+          <div class="evpage-label">
+            <div class="evpage-id">EV-A / EV-B / EV-C</div>
+            <div class="evpage-title">Evidence — Coffee Mug, Notepad &amp; Handbag</div>
+          </div>
         </a>
-        <a class="polaroid-card" style="--rot:2.1deg" href="case_files/photos/ME-0447-CS-04.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-CS-04.png" alt="CS-04">
-          <div class="polaroid-caption">CS-04 · Entry Doorway</div>
+
+        <a class="evpage-card" href="case_files/photos/ME-0447-EV-D.jpg" onclick="lightbox(event,this)">
+          <img class="evpage-img" src="case_files/photos/ME-0447-EV-D.jpg" alt="Evidence Photo EV-D">
+          <div class="evpage-label">
+            <div class="evpage-id">EV-D</div>
+            <div class="evpage-title">Evidence — Blouse Stain Detail</div>
+          </div>
         </a>
-        <a class="polaroid-card" style="--rot:-1.4deg" href="case_files/photos/ME-0447-CS-05.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-CS-05.png" alt="CS-05">
-          <div class="polaroid-caption">CS-05 · Desk Lamp</div>
-        </a>
-        <a class="polaroid-card" style="--rot:0.9deg" href="case_files/photos/ME-0447-EV-A.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-EV-A.png" alt="EV-A">
-          <div class="polaroid-caption">EV-A · Coffee Mug</div>
-        </a>
-        <a class="polaroid-card" style="--rot:-2.2deg" href="case_files/photos/ME-0447-EV-B.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-EV-B.png" alt="EV-B">
-          <div class="polaroid-caption">EV-B · Notepad</div>
-        </a>
-        <a class="polaroid-card" style="--rot:1.6deg" href="case_files/photos/ME-0447-EV-C.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-EV-C.png" alt="EV-C">
-          <div class="polaroid-caption">EV-C · Handbag</div>
-        </a>
-        <a class="polaroid-card" style="--rot:-0.5deg" href="case_files/photos/ME-0447-EV-D.png" onclick="lightbox(event,this)">
-          <img class="polaroid-img" src="case_files/photos/ME-0447-EV-D.png" alt="EV-D">
-          <div class="polaroid-caption">EV-D · Blouse — Stain Detail</div>
-        </a>
+
         <a class="doc-card" style="--accent:#c03020" href="case_files/photos/ME-0447-SD-01-Scene-Diagram.pdf" target="_blank">
           <div class="doc-id">SD-01</div>
           <div class="doc-title">Suite 712 — Scene Diagram</div>
           <div class="doc-desc">Hand-sketched floor plan. Evidence markers A–E. Body position marked. Dimensions annotated.</div>
           <div class="doc-pages">1 page · PDF</div>
         </a>
+
       </div>
     </div>
 
