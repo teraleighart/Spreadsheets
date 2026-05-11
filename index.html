@@ -110,11 +110,19 @@ body{
 }
 .screen{animation:flicker 9s infinite}
 
-#screen-text{
+/* Scrollable inner wrapper — hides scrollbar, allows programmatic scroll */
+#text-wrap{
   position:relative;
   z-index:3;
   height:100%;
-  overflow:hidden;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  -ms-overflow-style:none;
+  scrollbar-width:none;
+}
+#text-wrap::-webkit-scrollbar{display:none}
+
+#screen-text{
   font-family:'VT323',monospace;
   font-size:clamp(13px,2vw,17px);
   line-height:1.55;
@@ -531,7 +539,7 @@ body{
       <div class="monitor-bezel">
         <div class="screen">
           <div class="glow"></div>
-          <div id="screen-text"></div><span id="cursor">▌</span>
+          <div id="text-wrap"><div id="screen-text"></div><span id="cursor">▌</span></div>
         </div>
       </div>
       <div class="monitor-base">
@@ -816,74 +824,55 @@ body{
 // ── INTRO TEXT ──────────────────────────────────────────────────────────────
 
 const SEGMENTS = [
-  {t:'COLD CASE UNIT — MINNEHAHA COUNTY, SOUTH DAKOTA\n',   speed:28, color:'#e8a828'},
-  {t:'RESTRICTED ACCESS — AUTHORIZED PERSONNEL ONLY\n',      speed:28, color:'#8a5a20'},
-  {pause:900},
-  {t:'─────────────────────────────────────────────────\n',  speed:4,  color:'#3a2810'},
-  {pause:1100},
-  {t:'\nThe call comes on a Tuesday morning.\n',             speed:38},
-  {pause:500},
-  {t:'\nJames Brewer — your old partner from your Sioux Falls years.\n', speed:36},
-  {t:'Before your transfer south. Before he made Homicide.\n', speed:36},
+  {t:'> COLD CASE UNIT — MINNEHAHA COUNTY, SD\n',   speed:25, color:'#e8a828'},
+  {t:'> INCOMING MESSAGE — PERSONAL\n',              speed:25, color:'#8a5a20'},
+  {pause:700},
+  {t:'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {pause:1000},
+  {t:'\nHey.\n',                                     speed:55},
+  {pause:800},
+  {t:'\nI know you didn\'t expect to hear from me like this.\n', speed:40},
   {pause:400},
-  {t:"You haven't spoken in almost two years.\n",            speed:36},
-  {t:"His voice sounds tired. Older than you remember.\n",   speed:36},
-  {pause:900},
-  {t:'\n"I\'m putting in my papers," he says.\n',            speed:40},
-  {t:'"Thirty-one years. Out at the end of next month."\n',  speed:40},
+  {t:'\nI\'m putting in my papers.\n',               speed:42},
+  {t:'Thirty-one years.\n',                          speed:42},
+  {t:'Out at the end of next month.\n',              speed:42},
   {pause:600},
-  {t:'\nYou tell him congratulations and mean it.\n',        speed:38},
+  {t:'\nHomicide has ground me down \u2014\n',            speed:40},
+  {t:'but I know I don\'t have to tell you about that.\n', speed:40},
   {pause:700},
-  {t:'\n"There\'s something I need you to do for me," he says.\n', speed:38},
-  {t:'"Before I go. Something I should\'ve done years ago."\n',    speed:38},
-  {pause:1200},
-  {t:'\n─────────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
-  {pause:800},
-  {t:'\nHe tells you about a case.\n',                       speed:38},
+  {t:'\nYou were the best partner I ever had\non the Sioux Falls PD.\n', speed:38},
   {pause:500},
-  {t:'\n  2015. Sioux Falls.\n',                             speed:32, color:'#e8a828'},
-  {t:'  A woman named Eleanor Marsh.\n',                     speed:32, color:'#e8a828'},
-  {t:'  Forty-six years old. CFO of an investment firm.\n',  speed:32, color:'#e8a828'},
-  {t:'  Found dead at her desk — a Tuesday morning, just like this one.\n', speed:32, color:'#e8a828'},
-  {t:"  She'd been there all night.\n",                      speed:32, color:'#e8a828'},
-  {pause:800},
-  {t:'\nThe seventh-floor camera had been offline for three days.\n', speed:36},
-  {t:'The building badge log had an anomaly nobody could explain.\n', speed:36},
-  {t:'The ME ruled cause of death undetermined.\n',          speed:36},
-  {t:'No charges were ever filed.\n',                        speed:36},
+  {t:'\nAnd I need a favor.\n',                      speed:48},
   {pause:900},
-  {t:'\n─────────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
+  {t:'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
   {pause:700},
-  {t:'\n"I never believed it," Brewer says.\n',              speed:40},
-  {t:'"Maria didn\'t either. But the evidence wasn\'t enough.\n', speed:40},
-  {t:" The DA wouldn't touch it. And then it just... sat.\"\n",   speed:40},
-  {pause:600},
-  {t:'\n"The file\'s been in my basement for nine years."\n', speed:38},
+  {t:'\nThere\'s just one case I didn\'t solve.\n',  speed:40},
+  {t:'I can\'t get it out of my head.\n',            speed:40},
   {pause:500},
-  {t:'"I can\'t walk away without knowing someone looked.\n', speed:38},
-  {t:'Really looked."\n',                                    speed:38},
-  {pause:1200},
-  {t:'\n─────────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
-  {pause:900},
-  {t:'\nThree days later, the package arrives.\n',           speed:38},
-  {t:'Sioux Falls postmark. No return address.\n',           speed:38},
-  {pause:600},
-  {t:'\nYou open it on the kitchen table.\n',                speed:38},
+  {t:'\nI\'m sending over the papers.\n',            speed:40},
+  {t:'Print them out, or just pull them up on your screen \u2014\n', speed:38},
+  {t:'but look at them.\n',                          speed:44},
+  {pause:500},
+  {t:'\nI need fresh eyes. A fresh perspective.\n',  speed:40},
   {pause:700},
-  {t:'\nInside: a manila envelope, held shut with a rubber band.\n', speed:36},
-  {t:"Brewer's handwriting on the front:\n",                 speed:36},
-  {pause:800},
-  {t:'\n    MARSH / ELEANOR ANNE / DOB 03-22-1969\n',        speed:28, color:'#e8c060'},
-  {t:'    CASE 2015-ME-0447 / SFPD-2015-48801\n',            speed:28, color:'#e8c060'},
-  {t:'    *** COLD ***\n',                                   speed:28, color:'#c03020'},
-  {pause:1200},
-  {t:'\nYou pour yourself a drink.\n',                       speed:40},
+  {t:'\nI know it\'s a big ask.\n',                  speed:44},
+  {pause:500},
+  {t:'\nBut I\'d like to put this one to bed\n',     speed:40},
+  {t:'before I clock out for the last time.\n',      speed:40},
   {pause:900},
-  {t:'You open the file.\n',                                 speed:40},
-  {pause:1600},
-  {t:'\n─────────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
+  {t:'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {pause:800},
+  {t:'\nFor old time\'s sake \u2014 will you look at it?\n', speed:38},
   {pause:600},
-  {t:'\n▸  PRESS ANY KEY TO OPEN THE FILE\n',                speed:22, color:'#e8a828'},
+  {t:'\n    MARSH / ELEANOR ANNE / DOB 03-22-1969\n', speed:26, color:'#e8c060'},
+  {t:'    CASE 2015-ME-0447 / SFPD-2015-48801\n',    speed:26, color:'#e8c060'},
+  {t:'    *** COLD ***\n',                           speed:26, color:'#c03020'},
+  {pause:800},
+  {t:'\n                          \u2014 Brewer\n',       speed:36, color:'#8a5a20'},
+  {pause:1200},
+  {t:'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {pause:600},
+  {t:'\n\u25b8  Click anywhere or press any key to open the case file.\n', speed:22, color:'#e8a828'},
   {done:true},
 ];
 
@@ -931,8 +920,8 @@ function nextChar() {
     textEl.parentElement.scrollTop = textEl.parentElement.scrollHeight;
 
     // Auto-scroll screen div
-    const screen = document.querySelector('.screen');
-    screen.scrollTop = screen.scrollHeight;
+    const wrap = document.getElementById("text-wrap");
+    wrap.scrollTop = wrap.scrollHeight;
 
     const speed = seg.speed || 36;
     const jitter = ch === '\n' ? 60 : (Math.random() * 0.4 + 0.8) * speed;
