@@ -528,6 +528,33 @@ body{
 }
 #lb-close:hover{color:#c88c14}
 
+/* ── PDF MODAL ─────────────────────────────────────────────── */
+#pdf-modal{
+  display:none;position:fixed;inset:0;z-index:800;
+  background:#050403;flex-direction:column;
+}
+#pdf-modal.open{display:flex}
+#pdf-bar{
+  background:#0e0c08;border-bottom:1px solid #2a2010;
+  padding:10px 20px;display:flex;align-items:center;gap:20px;flex-shrink:0;
+}
+#pdf-back{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  letter-spacing:2px;color:#c88c14;
+  background:none;border:1px solid #3a2810;padding:6px 16px;cursor:pointer;
+  text-transform:uppercase;
+}
+#pdf-back:hover{color:#e8c870;border-color:#c88c14}
+#pdf-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:#5a4820;letter-spacing:1px;
+}
+#pdf-hint{
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:#3a2810;margin-left:auto;
+}
+#pdf-frame{flex:1;border:none;width:100%;height:100%}
+
 </style>
 </head>
 <body>
@@ -578,55 +605,55 @@ body{
       <div class="section-tab tab-me">⬡ Medical Examiner's File &nbsp;·&nbsp; 9 documents</div>
       <hr class="section-rule rule-me">
       <div class="doc-grid">
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-01-Intake-Face-Sheet.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-01-Intake-Face-Sheet.pdf">
           <div class="doc-id">ME-01</div>
           <div class="doc-title">Case Intake Face Sheet</div>
           <div class="doc-desc">Administrative intake — decedent ID, location, jurisdiction, body receipt summary.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-02-Death-Investigation-Report.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-02-Death-Investigation-Report.pdf">
           <div class="doc-id">ME-02</div>
           <div class="doc-title">Death Investigation Report</div>
           <div class="doc-desc">Full investigator narrative — scene, discovery, witness sources, chronology. 5 pages.</div>
           <div class="doc-pages">5 pages</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-03-Body-Receipt-Transport-Record.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-03-Body-Receipt-Transport-Record.pdf">
           <div class="doc-id">ME-03</div>
           <div class="doc-title">Body Receipt &amp; Transport Record</div>
           <div class="doc-desc">Scene release, transport run, ME facility receipt and seal documentation.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-04-Personal-Effects-Property-Inventory.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-04-Personal-Effects-Property-Inventory.pdf">
           <div class="doc-id">ME-04</div>
           <div class="doc-title">Personal Effects Inventory</div>
           <div class="doc-desc">Clothing, jewelry, and purse contents documented at intake. 14 items catalogued.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-05-Autopsy-Report.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-05-Autopsy-Report.pdf">
           <div class="doc-id">ME-05</div>
           <div class="doc-title">Autopsy Report</div>
           <div class="doc-desc">Full narrative autopsy — external, internal, organ weights, histology plan. Cause deferred.</div>
           <div class="doc-pages">7 pages</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-06-Specimen-Evidence-Retained-Sheet.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-06-Specimen-Evidence-Retained-Sheet.pdf">
           <div class="doc-id">ME-06</div>
           <div class="doc-title">Specimen / Evidence Retained</div>
           <div class="doc-desc">19 specimens collected — blood, vitreous, urine, tissue blocks, hair, gastric contents.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-07-Toxicology-Submission-Form.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-07-Toxicology-Submission-Form.pdf">
           <div class="doc-id">ME-07</div>
           <div class="doc-title">Toxicology Submission Form</div>
           <div class="doc-desc">10 analysis categories requested — comprehensive screen, heavy metals, volatiles, cyanide, hair segmental.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-08-Toxicology-Report.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-08-Toxicology-Report.pdf">
           <div class="doc-id">ME-08</div>
           <div class="doc-title">Toxicology Report</div>
           <div class="doc-desc">Lab results — key findings WITHHELD pending pathologist correlation. Negative panel listed.</div>
           <div class="doc-pages">2 pages</div>
         </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-09-Ancillary-Studies-Histology-Index.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-09-Ancillary-Studies-Histology-Index.pdf">
           <div class="doc-id">ME-09</div>
           <div class="doc-title">Ancillary Studies &amp; Histology Index</div>
           <div class="doc-desc">20 tissue blocks, photography archive, dictation log, QC records. Brain sections pending.</div>
@@ -673,7 +700,7 @@ body{
           </div>
         </a>
 
-        <a class="doc-card" style="--accent:#c03020" href="case_files/photos/ME-0447-SD-01-Scene-Diagram.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#c03020" href="case_files/photos/ME-0447-SD-01-Scene-Diagram.pdf">
           <div class="doc-id">SD-01</div>
           <div class="doc-title">Suite 712 — Scene Diagram</div>
           <div class="doc-desc">Hand-sketched floor plan. Evidence markers A–E. Body position marked. Dimensions annotated.</div>
@@ -688,43 +715,43 @@ body{
       <div class="section-tab tab-ws">⬡ Witness Statements &nbsp;·&nbsp; 7 documents</div>
       <hr class="section-rule rule-ws">
       <div class="doc-grid">
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-01-Fuentes-Interview-Transcript.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-01-Fuentes-Interview-Transcript.pdf">
           <div class="doc-id">WS-01</div>
           <div class="doc-title">Ramon Fuentes — Interview</div>
           <div class="doc-desc">IT contractor. Found the body. Badge card anomaly — his card used at 22:47. He denies it.</div>
           <div class="doc-pages">2 pages · Transcript</div>
         </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-02-Molander-Interview-Transcript.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-02-Molander-Interview-Transcript.pdf">
           <div class="doc-id">WS-02</div>
           <div class="doc-title">Linda Molander — Interview</div>
           <div class="doc-desc">Office manager. Unknown visitor on Oct. 13. Wrong coffee in the mug. Car stayed overnight.</div>
           <div class="doc-pages">2 pages · Transcript</div>
         </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-03-Ellsworth-Written-Statement.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-03-Ellsworth-Written-Statement.pdf">
           <div class="doc-id">WS-03</div>
           <div class="doc-title">Craig Ellsworth — Statement</div>
           <div class="doc-desc">COO — Marsh's superior. Last to see her alive. Refuses to characterize her 11:47 PM email. With counsel.</div>
           <div class="doc-pages">1 page · Written (w/ counsel)</div>
         </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-04-Kowalski-Interview-Transcript.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-04-Kowalski-Interview-Transcript.pdf">
           <div class="doc-id">WS-04</div>
           <div class="doc-title">Diane Kowalski — Interview</div>
           <div class="doc-desc">Marsh's assistant. The visitor 'Vren.' The missing USB drive. "Things here are not what they appear to be."</div>
           <div class="doc-pages">2 pages · Transcript</div>
         </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-05-Herne-Written-Statement.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-05-Herne-Written-Statement.pdf">
           <div class="doc-id">WS-05</div>
           <div class="doc-title">Patrick Herne — Statement</div>
           <div class="doc-desc">Night security. Badge log: Fuentes card at 22:47. Herne was away from desk 22 minutes.</div>
           <div class="doc-pages">1 page · Written</div>
         </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-06-Solis-Written-Statement.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-06-Solis-Written-Statement.pdf">
           <div class="doc-id">WS-06</div>
           <div class="doc-title">Victor Solis — Statement</div>
           <div class="doc-desc">Building manager. 7th floor camera offline 3 days. Contractor card cannot open Suite 712.</div>
           <div class="doc-pages">1 page · Written</div>
         </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-07-Taft-Phone-Interview-Transcript.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-07-Taft-Phone-Interview-Transcript.pdf">
           <div class="doc-id">WS-07</div>
           <div class="doc-title">Dr. Susan Taft — Phone Interview</div>
           <div class="doc-desc">Treating physician. Lisinopril. Elevated BP. Cardiology referral never followed up. Cryptic medication remark.</div>
@@ -738,13 +765,13 @@ body{
       <div class="section-tab tab-pr">⬡ Police Reports &nbsp;·&nbsp; 2 documents</div>
       <hr class="section-rule rule-pr">
       <div class="doc-grid">
-        <a class="doc-card" style="--accent:#40a048" href="case_files/PR-01-Initial-Incident-Report.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#40a048" href="case_files/PR-01-Initial-Incident-Report.pdf">
           <div class="doc-id">PR-01</div>
           <div class="doc-title">Initial Incident Report</div>
           <div class="doc-desc">Responding officers Williams &amp; Chandra. Scene, EMS, notifications. Action log with timestamps.</div>
           <div class="doc-pages">2 pages</div>
         </a>
-        <a class="doc-card" style="--accent:#40a048" href="case_files/PR-02-Detective-Case-Summary.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#40a048" href="case_files/PR-02-Detective-Case-Summary.pdf">
           <div class="doc-id">PR-02</div>
           <div class="doc-title">Detective Case Summary</div>
           <div class="doc-desc">Det. Santos supplemental report. 6 investigative issues. 12 evidence items. Pending actions table.</div>
@@ -758,7 +785,7 @@ body{
       <div class="section-tab tab-coc">⬡ Chain of Custody &nbsp;·&nbsp; 1 document</div>
       <hr class="section-rule rule-coc">
       <div class="doc-grid">
-        <a class="doc-card" style="--accent:#909090" href="case_files/COC-01-Evidence-Chain-of-Custody.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#909090" href="case_files/COC-01-Evidence-Chain-of-Custody.pdf">
           <div class="doc-id">COC-01</div>
           <div class="doc-title">Evidence Chain of Custody</div>
           <div class="doc-desc">All 12 SFPD evidence items — collection, seal numbers, transfers. USB drive: NOT RECOVERED.</div>
@@ -772,19 +799,19 @@ body{
       <div class="section-tab tab-corr">⬡ Inter-Agency Correspondence &nbsp;·&nbsp; 3 documents</div>
       <hr class="section-rule rule-corr">
       <div class="doc-grid">
-        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-01-SFPD-to-ME-Expedited-Tox-Request.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-01-SFPD-to-ME-Expedited-Tox-Request.pdf">
           <div class="doc-id">CORR-01</div>
           <div class="doc-title">SFPD → ME Office</div>
           <div class="doc-desc">Det. Santos requests expedited tox release and informal guidance. Oct. 16, 2015.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-02-ME-to-SFPD-Tox-Response.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-02-ME-to-SFPD-Tox-Response.pdf">
           <div class="doc-id">CORR-02</div>
           <div class="doc-title">ME Office → SFPD</div>
           <div class="doc-desc">Dr. Adeyemi declines both requests. "The findings are not straightforward." Oct. 19, 2015.</div>
           <div class="doc-pages">1 page</div>
         </a>
-        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-03-ME-to-DA-Suspicious-Death-Notice.pdf" target="_blank">
+        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-03-ME-to-DA-Suspicious-Death-Notice.pdf">
           <div class="doc-id">CORR-03</div>
           <div class="doc-title">ME Office → DA</div>
           <div class="doc-desc">Chief ME Okonkwo formally notifies DA. Flags financial crimes angle. Oct. 15, 2015.</div>
@@ -798,7 +825,7 @@ body{
       <div class="section-tab tab-seal">⬡ Sealed Envelope</div>
       <hr class="section-rule rule-seal">
       <div class="doc-grid">
-        <a class="sealed-card" href="case_files/ANSWER-KEY-Sealed-Solution-Document.pdf" target="_blank">
+        <a class="sealed-card" href="case_files/ANSWER-KEY-Sealed-Solution-Document.pdf">
           <div class="sealed-stamp">SEALED</div>
           <div class="sealed-title">Solution Document — Do Not Open Until Your Investigation Is Complete</div>
           <div class="sealed-desc">
@@ -815,6 +842,16 @@ body{
 </div><!-- /case-file -->
 
 <!-- Lightbox -->
+<!-- ── PDF MODAL ──────────────────────────────────────────── -->
+<div id="pdf-modal">
+  <div id="pdf-bar">
+    <button id="pdf-back" onclick="closePDF()">&#8592; BACK TO CASE FILE</button>
+    <span id="pdf-label"></span>
+    <span id="pdf-hint">Scroll to read &nbsp;·&nbsp; Right-click to save / print</span>
+  </div>
+  <iframe id="pdf-frame" src="" title="Document viewer"></iframe>
+</div>
+
 <div id="lightbox" onclick="closeLightbox()">
   <button id="lb-close" onclick="closeLightbox()">[ CLOSE ]</button>
   <img id="lb-img" src="" alt="">
@@ -990,6 +1027,34 @@ function closeLightbox() {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox();
+});
+
+// ── PDF MODAL ────────────────────────────────────────────────────────────────
+function openPDF(href, title) {
+  document.getElementById('pdf-frame').src = href;
+  document.getElementById('pdf-label').textContent = title;
+  document.getElementById('pdf-modal').classList.add('open');
+}
+function closePDF() {
+  document.getElementById('pdf-modal').classList.remove('open');
+  document.getElementById('pdf-frame').src = '';
+}
+
+document.addEventListener('click', e => {
+  const card = e.target.closest('.doc-card, .sealed-card');
+  if (!card) return;
+  const href = card.getAttribute('href');
+  if (!href || !href.endsWith('.pdf')) return;
+  e.preventDefault();
+  const titleEl = card.querySelector('.doc-title, .sealed-title');
+  const title = titleEl ? titleEl.textContent : href.split('/').pop();
+  openPDF(href, title);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('pdf-modal').classList.contains('open')) {
+    closePDF();
+  }
 });
 
 // ── START ───────────────────────────────────────────────────────────────────
