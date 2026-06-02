@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Savvy Bride – Dashboard</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FBF7F1;--cream-mid:#F5EDE0;--cream-dark:#E9D9C6;
+  --gold:#BF8820;--gold-light:#D9AC55;--gold-pale:#F7EDD4;--gold-dark:#7C5A0C;
+  --brown-dark:#342210;--brown-mid:#67493A;--brown-light:#9E8472;
+  --white:#FFFEF9;--border:#E0CEB8;--red-bg:#FDF1EF;--red:#9E2E1C;
+  --shadow:0 2px 16px rgba(80,50,5,0.09);
+}
+body{font-family:Georgia,'Palatino Linotype',serif;background:var(--cream);color:var(--brown-dark);min-height:100vh;display:flex}
+
+/* SIDEBAR */
+.sidebar{width:214px;min-width:214px;background:linear-gradient(170deg,#EDE0CC 0%,#E2CEB8 50%,#D5BFA4 100%);border-right:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:22px 0 32px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-brand{width:100%;padding:0 14px 18px;border-bottom:1px solid #C8B49A;text-align:center;margin-bottom:6px}
+.sb-circle{width:50px;height:50px;border-radius:50%;margin:0 auto 9px;background:linear-gradient(140deg,#E8C06A,#A07010);display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-style:italic;box-shadow:0 3px 10px rgba(160,112,10,.40)}
+.sb-the{font-size:8px;letter-spacing:.32em;text-transform:uppercase;color:var(--brown-light)}
+.sb-name{font-size:15px;font-style:italic;color:var(--gold-dark);letter-spacing:.02em;line-height:1.2}
+.sb-nav{width:100%;padding:0 10px;display:flex;flex-direction:column;gap:1px}
+.sb-sec{font-size:7.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--brown-light);padding:12px 8px 4px;border-top:1px solid #C8B49A;margin-top:6px}
+.sb-sec:first-of-type{border-top:none;margin-top:0}
+.nav-btn{width:100%;padding:8px 13px;background:transparent;border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:9px;font-family:inherit;font-size:13px;color:var(--brown-mid);text-align:left;transition:background .15s,color .15s}
+.nav-btn:hover{background:rgba(255,252,246,.5)}
+.nav-btn.active{background:var(--white);color:var(--gold-dark);font-weight:bold;box-shadow:0 1px 8px rgba(100,70,10,.12)}
+.nav-btn.dim{opacity:.55;cursor:default}
+.nav-btn.dim:hover{background:transparent}
+.ni{font-size:13px;width:17px;text-align:center;flex-shrink:0}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;background:var(--cream)}
+
+/* HEADER */
+.dash-header{display:flex;align-items:stretch;min-height:128px;flex-shrink:0;background:linear-gradient(120deg,#FBF4E6 0%,#F5E9D2 40%,#EDD8B2 100%);border-bottom:2px solid var(--border);overflow:hidden}
+.logo-wrap{width:290px;min-width:290px;flex-shrink:0;border-right:1px solid #D8C6A8;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.logo-wrap svg{width:100%;height:100%;display:block}
+.header-body{flex:1;display:flex;align-items:center;padding:20px 30px;gap:26px}
+.couple-names{font-size:30px;font-style:italic;font-weight:normal;color:var(--gold-dark);letter-spacing:.01em;margin-bottom:5px}
+.wedding-date-line{font-size:15px;color:var(--brown-mid);margin-bottom:3px}
+.days-line{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold)}
+.hdr-div{width:1px;height:68px;flex-shrink:0;background:linear-gradient(to bottom,transparent,var(--gold-light),transparent)}
+.hdr-badge{text-align:center;background:rgba(255,253,249,.7);border:1px solid var(--border);border-radius:12px;padding:13px 20px;min-width:108px}
+.badge-num{font-size:40px;font-weight:bold;color:var(--gold-dark);line-height:1;margin-bottom:3px}
+.badge-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--brown-light)}
+
+/* CONTENT */
+.content{padding:22px 26px 48px}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:22px}
+.kpi{background:var(--white);border:1px solid var(--border);border-radius:13px;padding:17px 16px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3.5px;background:linear-gradient(90deg,#E8C06A,#BF8820)}
+.kpi-lbl{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--brown-light);margin-bottom:9px}
+.kpi-val{font-size:21px;font-weight:bold;color:var(--brown-dark);line-height:1.2;margin-bottom:4px}
+.kpi-sub{font-size:11px;color:var(--brown-light);margin-top:2px;line-height:1.6}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:17px;align-items:start}
+.card{background:var(--white);border:1px solid var(--border);border-radius:13px;box-shadow:var(--shadow);overflow:hidden}
+.card-head{padding:13px 17px 11px;border-bottom:1px solid var(--cream-dark);background:linear-gradient(90deg,#FAF4EC,#F5EDE0);display:flex;align-items:center;gap:8px}
+.card-dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--gold-light),var(--gold));flex-shrink:0}
+.card-title{font-size:13px;font-style:italic;color:var(--gold-dark);font-weight:normal;letter-spacing:.03em}
+.card-body{padding:14px 17px}
+
+/* TASKS */
+.tasks{display:flex;flex-direction:column;gap:8px;list-style:none}
+.task{display:flex;align-items:flex-start;gap:9px;background:var(--cream);border:1px solid var(--border);border-radius:9px;padding:10px 11px;transition:opacity .3s}
+.task.late{background:var(--red-bg);border-color:#E0BAB4}
+.task.done{opacity:.45}
+.task.done .task-name{text-decoration:line-through;color:var(--brown-light)!important}
+.task.done.late{background:var(--cream)}
+.task input[type=checkbox]{width:15px;height:15px;margin-top:2px;accent-color:var(--gold);flex-shrink:0;cursor:pointer}
+.task-info{flex:1}
+.task-name{font-size:12.5px;font-weight:bold;color:var(--brown-dark);margin-bottom:3px;line-height:1.3;transition:color .2s}
+.task.late:not(.done) .task-name{color:var(--red)}
+.task-meta{display:flex;gap:7px;align-items:center}
+.task-date{font-size:10px;color:var(--brown-light)}
+.task.late:not(.done) .task-date{color:var(--red);font-weight:bold}
+.task-tag{font-size:9px;background:var(--gold-pale);color:var(--gold-dark);border-radius:20px;padding:1px 8px}
+.task.late:not(.done) .task-tag{background:#FBDDD9;color:var(--red)}
+
+/* CALENDAR */
+.cal-top{display:flex;align-items:center;justify-content:space-between;padding:13px 17px 11px;border-bottom:1px solid var(--cream-dark);background:linear-gradient(90deg,#FAF4EC,#F5EDE0)}
+.cal-month-lbl{font-size:13px;font-style:italic;color:var(--gold-dark);font-weight:normal}
+.cal-arrows{display:flex;gap:4px}
+.cal-arrow{background:transparent;border:1px solid var(--border);border-radius:6px;width:25px;height:25px;cursor:pointer;font-size:14px;color:var(--brown-mid);display:flex;align-items:center;justify-content:center;transition:background .15s}
+.cal-arrow:hover{background:var(--cream-mid)}
+.cal-inner{padding:9px 10px 12px}
+.cal-wds{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:2px}
+.cal-wd{font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--brown-light);padding:4px 0}
+.cal-cells{display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
+.cc{display:flex;flex-direction:column;align-items:center;padding:2px 1px;min-height:41px;border-radius:5px}
+.dn{font-size:11px;color:var(--brown-dark);width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin:2px 0}
+.cc.today .dn{background:var(--gold);color:#fff;font-weight:bold}
+.cc.ev .dn{background:var(--gold-pale);color:var(--gold-dark);font-weight:bold}
+.cc.ov .dn{background:#FBDDD9;color:var(--red);font-weight:bold}
+.cc.wedding .dn{background:var(--gold-dark);color:#fff;font-weight:bold;box-shadow:0 0 0 2px var(--gold-light)}
+.ev-lbl{font-size:7px;color:var(--gold-dark);text-align:center;line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 1px}
+.cc.ov .ev-lbl{color:var(--red)}
+.cc.wedding .ev-lbl{color:var(--gold-dark);font-weight:bold}
+
+/* PHOTOS */
+.photo-stage{background:linear-gradient(145deg,var(--cream-mid),var(--cream-dark));border:2px dashed #D0BEA8;border-radius:10px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;margin-bottom:12px;cursor:pointer;transition:border-color .2s,background .2s}
+.photo-stage:hover{border-color:var(--gold);background:var(--gold-pale)}
+.photo-icon{font-size:32px;opacity:.25}
+.photo-lbl{font-size:11px;color:var(--brown-light);font-style:italic}
+.photo-hint{font-size:10px;color:var(--gold);opacity:.8}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(68px,1fr));gap:7px;margin-bottom:12px}
+.photo-thumb{position:relative;aspect-ratio:1;border-radius:7px;overflow:hidden;border:1px solid var(--border)}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-thumb .rm-btn{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(52,34,16,.65);color:#fff;border:none;cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .15s}
+.photo-thumb .rm-btn:hover{background:rgba(158,46,28,.85)}
+.photo-add-slot{aspect-ratio:1;border-radius:7px;border:1.5px dashed #D0BEA8;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--brown-light);font-size:22px;transition:border-color .2s,color .2s}
+.photo-add-slot:hover{border-color:var(--gold);color:var(--gold)}
+.upload-note{background:var(--cream);border:1px solid var(--border);border-radius:9px;padding:12px 13px;text-align:center}
+.upload-note strong{display:block;font-size:12px;color:var(--brown-mid);margin-bottom:4px}
+.upload-note p{font-size:10.5px;color:var(--brown-light);line-height:1.6}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--cream)}
+::-webkit-scrollbar-thumb{background:var(--cream-dark);border-radius:3px}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-circle">S</div>
+    <p class="sb-the">The</p>
+    <p class="sb-name">Savvy Bride</p>
+  </div>
+  <nav class="sb-nav">
+    <p class="sb-sec">Overview</p>
+    <button class="nav-btn active" aria-current="page"><span class="ni">&#9783;</span>Dashboard</button>
+    <p class="sb-sec">Planning</p>
+    <button class="nav-btn dim" disabled><span class="ni">&#128197;</span>Timeline</button>
+    <button class="nav-btn dim" disabled><span class="ni">&#9745;</span>To-Do List</button>
+    <button class="nav-btn dim" disabled><span class="ni">&#128176;</span>Budget</button>
+    <p class="sb-sec">People</p>
+    <button class="nav-btn dim" disabled><span class="ni">&#128101;</span>Guests</button>
+    <button class="nav-btn dim" disabled><span class="ni">&#128149;</span>Wedding Party</button>
+    <p class="sb-sec">Vendors</p>
+    <button class="nav-btn dim" disabled><span class="ni">&#127968;</span>Venues</button>
+    <button class="nav-btn dim" disabled><span class="ni">&#127860;</span>Catering</button>
+    <button class="nav-btn dim" disabled><span class="ni">&#127880;</span>Florals</button>
+    <p class="sb-sec">The Wedding Day</p>
+    <button class="nav-btn dim" disabled><span class="ni">&#9962;</span>Ceremony</button>
+    <button class="nav-btn dim" disabled><span class="ni">&#127775;</span>Reception</button>
+    <p class="sb-sec">After</p>
+    <button class="nav-btn dim" disabled><span class="ni">&#9992;</span>Honeymoon</button>
+  </nav>
+</aside>
+
+<main class="main">
+  <header class="dash-header">
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 128" aria-label="The Savvy Bride">
+        <defs>
+          <radialGradient id="logoBg" cx="50%" cy="40%" r="68%">
+            <stop offset="0%" stop-color="#FDF8F0"/>
+            <stop offset="55%" stop-color="#F3E5C8"/>
+            <stop offset="85%" stop-color="#EDDBBA"/>
+            <stop offset="100%" stop-color="#D9C4A0"/>
+          </radialGradient>
+          <linearGradient id="goldTxt" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#E8C06A"/>
+            <stop offset="45%" stop-color="#C49025"/>
+            <stop offset="100%" stop-color="#7C5A0C"/>
+          </linearGradient>
+          <radialGradient id="vig" cx="50%" cy="50%" r="50%">
+            <stop offset="55%" stop-color="white" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#C4A870" stop-opacity="0.28"/>
+          </radialGradient>
+        </defs>
+        <rect width="290" height="128" fill="url(#logoBg)"/>
+        <rect width="290" height="128" fill="url(#vig)"/>
+        <!-- subtle botanical outlines -->
+        <g opacity="0.09" stroke="#7C5A0C" stroke-width="1" fill="none">
+          <path d="M8,100 Q18,72 10,42 M10,72 Q28,60 38,46 M10,88 Q28,88 38,78"/>
+          <ellipse cx="38" cy="46" rx="8" ry="4" transform="rotate(-35,38,46)"/>
+          <ellipse cx="38" cy="78" rx="7" ry="3.5" transform="rotate(15,38,78)"/>
+          <path d="M282,100 Q272,72 280,42 M280,72 Q262,60 252,46 M280,88 Q262,88 252,78"/>
+          <ellipse cx="252" cy="46" rx="8" ry="4" transform="rotate(35,252,46)"/>
+          <ellipse cx="252" cy="78" rx="7" ry="3.5" transform="rotate(-15,252,78)"/>
+        </g>
+        <!-- flanking rules + "The" -->
+        <line x1="68" y1="20" x2="112" y2="20" stroke="#C9A840" stroke-width="0.7" opacity="0.75"/>
+        <line x1="178" y1="20" x2="222" y2="20" stroke="#C9A840" stroke-width="0.7" opacity="0.75"/>
+        <text x="145" y="24" text-anchor="middle" font-family="Georgia,'Palatino Linotype',serif" font-size="9.5" font-style="italic" fill="#BF8820" letter-spacing="3.5">The</text>
+        <!-- Savvy -->
+        <text x="145" y="64" text-anchor="middle" font-family="Georgia,'Palatino Linotype',serif" font-size="37" font-style="italic" font-weight="bold" fill="url(#goldTxt)">Savvy</text>
+        <!-- Bride -->
+        <text x="145" y="97" text-anchor="middle" font-family="Georgia,'Palatino Linotype',serif" font-size="37" font-style="italic" font-weight="bold" fill="url(#goldTxt)">Bride</text>
+        <!-- scrollwork -->
+        <path d="M38,112 Q55,104 70,110 Q82,115 77,123 Q68,129 56,122 Q48,116 55,108" fill="none" stroke="#BF8820" stroke-width="1.6" stroke-linecap="round" opacity="0.72"/>
+        <path d="M252,112 Q235,104 220,110 Q208,115 213,123 Q222,129 234,122 Q242,116 235,108" fill="none" stroke="#BF8820" stroke-width="1.6" stroke-linecap="round" opacity="0.72"/>
+        <path d="M56,122 Q93,128 138,118" fill="none" stroke="#BF8820" stroke-width="1.1" stroke-linecap="round" opacity="0.62"/>
+        <path d="M152,118 Q197,128 234,122" fill="none" stroke="#BF8820" stroke-width="1.1" stroke-linecap="round" opacity="0.62"/>
+        <!-- diamond ring -->
+        <g transform="translate(145,117)">
+          <ellipse cx="0" cy="1" rx="7" ry="4" fill="none" stroke="#BF8820" stroke-width="1.4" opacity="0.85"/>
+          <polygon points="0,-11 6,-4 0,-1 -6,-4" fill="#E8C06A" opacity="0.92"/>
+          <polygon points="0,-1 6,-4 0,3 -6,-4" fill="#B87C18" opacity="0.75"/>
+          <line x1="0" y1="-14" x2="0" y2="-11" stroke="#EFDA90" stroke-width="1.1"/>
+          <line x1="4" y1="-13" x2="3" y2="-10" stroke="#EFDA90" stroke-width="0.9"/>
+          <line x1="-4" y1="-13" x2="-3" y2="-10" stroke="#EFDA90" stroke-width="0.9"/>
+        </g>
+        <!-- lily upper-right -->
+        <g transform="translate(258,44)" opacity="0.72">
+          <path d="M0,0 Q-3,-8 0,-13 Q3,-8 0,0" fill="#C9A840"/>
+          <path d="M0,0 Q7,-5 11,-1 Q8,5 0,0" fill="#C9A840"/>
+          <path d="M0,0 Q-7,-5 -11,-1 Q-8,5 0,0" fill="#C9A840"/>
+          <path d="M0,0 Q5,7 2,12 Q-3,10 0,0" fill="#BF9830" opacity="0.8"/>
+          <path d="M0,0 Q-5,7 -2,12 Q3,10 0,0" fill="#BF9830" opacity="0.8"/>
+          <circle cx="0" cy="0" r="2.2" fill="#E8C06A"/>
+          <line x1="0" y1="0" x2="0" y2="10" stroke="#8B6914" stroke-width="1.2"/>
+        </g>
+      </svg>
+    </div>
+    <div class="header-body">
+      <div>
+        <h1 class="couple-names">Partner 1 &middot; Partner 2</h1>
+        <p class="wedding-date-line">Saturday, May 13, 2026</p>
+        <p class="days-line" id="displayDaysToGo"></p>
+      </div>
+      <div class="hdr-div"></div>
+      <div class="hdr-badge">
+        <div class="badge-num" id="badgeDays">—</div>
+        <div class="badge-lbl">Days to go</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="kpi-row">
+      <div class="kpi">
+        <p class="kpi-lbl">Wedding Date</p>
+        <p class="kpi-val">Saturday,<br>May 13, 2026</p>
+        <p class="kpi-sub" id="kpiDays"></p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-lbl">Budget</p>
+        <p class="kpi-val">$36,000</p>
+        <p class="kpi-sub">Budget set</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-lbl">Guests</p>
+        <p class="kpi-val">Invited 120</p>
+        <p class="kpi-sub">RSVP yes &nbsp;85</p>
+        <p class="kpi-sub">No reply yet &nbsp;28</p>
+      </div>
+      <div class="kpi">
+        <p class="kpi-lbl">Urgent To-Do</p>
+        <p class="kpi-val" id="kpiUrgent">4 due soon</p>
+        <p class="kpi-sub">Due within 7 days, including overdue</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="card-head"><div class="card-dot"></div><h2 class="card-title">Urgent To-Do List</h2></div>
+        <div class="card-body"><ul class="tasks" id="taskList"></ul></div>
+      </article>
+
+      <article class="card">
+        <div class="cal-top">
+          <h2 class="cal-month-lbl" id="calLabel"></h2>
+          <div class="cal-arrows">
+            <button class="cal-arrow" id="calPrev" aria-label="Previous month">&#8249;</button>
+            <button class="cal-arrow" id="calNext" aria-label="Next month">&#8250;</button>
+          </div>
+        </div>
+        <div class="cal-inner">
+          <div class="cal-wds">
+            <span class="cal-wd">Sun</span><span class="cal-wd">Mon</span><span class="cal-wd">Tue</span>
+            <span class="cal-wd">Wed</span><span class="cal-wd">Thu</span><span class="cal-wd">Fri</span><span class="cal-wd">Sat</span>
+          </div>
+          <div class="cal-cells" id="calCells"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-head"><div class="card-dot"></div><h2 class="card-title">Engagement Photos</h2></div>
+        <div class="card-body" id="photoBody"></div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<input type="file" id="photoInput" accept="image/*" multiple style="display:none">
+
+<script>
+(function(){
+  var WEDDING = new Date('2026-05-13T00:00:00');
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var today = new Date(); today.setHours(0,0,0,0);
+
+  /* ── Countdown ── */
+  var diff = Math.round((WEDDING - today) / 86400000);
+  var txt = diff > 0 ? diff + ' days to go' : diff === 0 ? 'Today is your wedding day!' : Math.abs(diff) + ' days since your wedding';
+  document.getElementById('displayDaysToGo').textContent = txt.toUpperCase();
+  document.getElementById('kpiDays').textContent = txt;
+  document.getElementById('badgeDays').textContent = diff > 0 ? diff : (diff === 0 ? '♥' : '0');
+
+  /* ── Tasks ── */
+  var tasks = [
+    {name:'Final dress fitting',       date:'2026-04-18', tag:'Attire',   overdue:true,  done:false},
+    {name:'Confirm caterer headcount', date:'2026-04-20', tag:'Vendors',  overdue:false, done:false},
+    {name:'Submit marriage license',   date:'2026-04-16', tag:'Timeline', overdue:true,  done:false},
+    {name:'Finalize seating chart',    date:'2026-04-22', tag:'Guests',   overdue:false, done:false},
+  ];
+
+  function fmtDate(s){
+    var d = new Date(s + 'T00:00:00');
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  }
+
+  function renderTasks(){
+    var ul = document.getElementById('taskList');
+    ul.innerHTML = '';
+    var active = 0;
+    tasks.forEach(function(t, i){
+      if(!t.done) active++;
+      var li = document.createElement('li');
+      var cls = 'task';
+      if(t.overdue && !t.done) cls += ' late';
+      if(t.done) cls += ' done';
+      li.className = cls;
+      var cb = document.createElement('input');
+      cb.type = 'checkbox'; cb.checked = t.done;
+      cb.setAttribute('aria-label', t.name);
+      cb.addEventListener('change', function(){ t.done = this.checked; renderTasks(); });
+      var info = document.createElement('div'); info.className = 'task-info';
+      var nm = document.createElement('p'); nm.className = 'task-name'; nm.textContent = t.name;
+      var meta = document.createElement('div'); meta.className = 'task-meta';
+      var dt = document.createElement('span'); dt.className = 'task-date';
+      dt.textContent = fmtDate(t.date) + (t.overdue && !t.done ? ' · Overdue' : '');
+      var tg = document.createElement('span'); tg.className = 'task-tag'; tg.textContent = t.tag;
+      meta.appendChild(dt); meta.appendChild(tg);
+      info.appendChild(nm); info.appendChild(meta);
+      li.appendChild(cb); li.appendChild(info);
+      ul.appendChild(li);
+    });
+    document.getElementById('kpiUrgent').textContent = active + ' due soon';
+  }
+  renderTasks();
+
+  /* ── Calendar ── */
+  var calEvents = {
+    '2026-04-16':{label:'License due',   cls:'ov'},
+    '2026-04-18':{label:'Dress fitting', cls:'ov'},
+    '2026-04-20':{label:'Caterer counts',cls:'ev'},
+    '2026-04-22':{label:'Seating chart', cls:'ev'},
+    '2026-05-13':{label:'Wedding Day!',  cls:'wedding'},
+  };
+
+  var calYear = today.getFullYear(), calMonth = today.getMonth();
+
+  function renderCal(){
+    document.getElementById('calLabel').textContent = MONTHS[calMonth] + ' ' + calYear;
+    var cells = document.getElementById('calCells');
+    cells.innerHTML = '';
+    var first = new Date(calYear, calMonth, 1).getDay();
+    var days  = new Date(calYear, calMonth + 1, 0).getDate();
+    for(var i = 0; i < first; i++) cells.appendChild(blank());
+    for(var d = 1; d <= days; d++){
+      var ds = calYear + '-' + pad(calMonth+1) + '-' + pad(d);
+      var dt = new Date(calYear, calMonth, d);
+      var ev = calEvents[ds];
+      var cc = document.createElement('div');
+      var cls = 'cc' + (ev ? ' ' + ev.cls : '') + (dt.getTime() === today.getTime() ? ' today' : '');
+      cc.className = cls;
+      var dn = document.createElement('span'); dn.className = 'dn'; dn.textContent = d;
+      cc.appendChild(dn);
+      if(ev){ var lb = document.createElement('span'); lb.className = 'ev-lbl'; lb.textContent = ev.label; cc.appendChild(lb); }
+      cells.appendChild(cc);
+    }
+    var total = first + days, rem = total % 7;
+    if(rem) for(var j = 0; j < 7 - rem; j++) cells.appendChild(blank());
+  }
+  function blank(){ var d = document.createElement('div'); d.className = 'cc'; return d; }
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  document.getElementById('calPrev').addEventListener('click', function(){
+    calMonth--; if(calMonth < 0){ calMonth = 11; calYear--; } renderCal();
+  });
+  document.getElementById('calNext').addEventListener('click', function(){
+    calMonth++; if(calMonth > 11){ calMonth = 0; calYear++; } renderCal();
+  });
+  renderCal();
+
+  /* ── Photos ── */
+  var MAX = 5, photos = [];
+
+  function renderPhotos(){
+    var body = document.getElementById('photoBody');
+    body.innerHTML = '';
+    if(photos.length === 0){
+      var stage = document.createElement('div'); stage.className = 'photo-stage';
+      stage.innerHTML = '<span class="photo-icon">&#128444;</span><p class="photo-lbl">No photos yet</p><p class="photo-hint">Click to upload</p>';
+      stage.addEventListener('click', function(){ document.getElementById('photoInput').click(); });
+      body.appendChild(stage);
+    } else {
+      var grid = document.createElement('div'); grid.className = 'photo-grid';
+      photos.forEach(function(src, idx){
+        var th = document.createElement('div'); th.className = 'photo-thumb';
+        var img = document.createElement('img'); img.src = src; img.alt = 'Photo ' + (idx+1);
+        var rm = document.createElement('button'); rm.className = 'rm-btn'; rm.innerHTML = '&#10005;'; rm.title = 'Remove';
+        rm.addEventListener('click', function(){ photos.splice(idx,1); renderPhotos(); });
+        th.appendChild(img); th.appendChild(rm); grid.appendChild(th);
+      });
+      if(photos.length < MAX){
+        var add = document.createElement('div'); add.className = 'photo-add-slot'; add.title = 'Add photo'; add.textContent = '+';
+        add.addEventListener('click', function(){ document.getElementById('photoInput').click(); });
+        grid.appendChild(add);
+      }
+      body.appendChild(grid);
+    }
+    var note = document.createElement('div'); note.className = 'upload-note';
+    note.innerHTML = '<strong>' + photos.length + ' of ' + MAX + ' photos</strong><p>' +
+      (photos.length < MAX ? 'Click to add engagement photos' : 'Maximum photos added') + '</p>';
+    body.appendChild(note);
+  }
+
+  document.getElementById('photoInput').addEventListener('change', function(e){
+    var files = Array.from(e.target.files).slice(0, MAX - photos.length);
+    var done = 0;
+    files.forEach(function(f){
+      var r = new FileReader();
+      r.onload = function(ev){ photos.push(ev.target.result); if(++done === files.length) renderPhotos(); };
+      r.readAsDataURL(f);
+    });
+    e.target.value = '';
+  });
+
+  renderPhotos();
+}());
+</script>
+</body>
+</html>
