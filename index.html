@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COLD CASE — MARSH, ELEANOR ANNE — 2015-ME-0447</title>
+<title>Suite 712 — The Eleanor Marsh Files</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
@@ -11,6 +11,7 @@
 /* ── RESET ─────────────────────────────────────────────── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;min-height:100vh;overflow-x:hidden}
+html{scroll-behavior:smooth}
 
 /* ── PHASE 1 — INTRO SCREEN ─────────────────────────────── */
 body{
@@ -54,7 +55,6 @@ body{
 }
 
 .screen{
-  background:#04030100;
   background-color:#060503;
   border-radius:8px;
   position:relative;
@@ -67,468 +67,412 @@ body{
     0 0 30px rgba(180,110,10,0.08);
   cursor:default;
 }
-
-/* Scanlines */
 .screen::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 3px,
-    rgba(0,0,0,0.13) 3px,
-    rgba(0,0,0,0.13) 4px
-  );
-  pointer-events:none;
-  z-index:5;
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.13) 3px,rgba(0,0,0,0.13) 4px);
+  pointer-events:none;z-index:5;
 }
-
-/* CRT vignette */
 .screen::after{
-  content:'';
-  position:absolute;
-  inset:0;
+  content:'';position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,0.55) 100%);
-  pointer-events:none;
-  z-index:6;
+  pointer-events:none;z-index:6;
 }
-
-/* Subtle phosphor glow */
 .glow{
-  position:absolute;
-  inset:0;
+  position:absolute;inset:0;
   background:radial-gradient(ellipse at 50% 40%,rgba(210,140,10,0.04) 0%,transparent 65%);
-  pointer-events:none;
-  z-index:1;
+  pointer-events:none;z-index:1;
 }
-
-@keyframes flicker{
-  0%,91%,93%,97%,100%{opacity:1}
-  92%{opacity:0.94}
-  96%{opacity:0.97}
-}
+@keyframes flicker{0%,91%,93%,97%,100%{opacity:1}92%{opacity:0.94}96%{opacity:0.97}}
 .screen{animation:flicker 9s infinite}
 
-/* Scrollable inner wrapper — hides scrollbar, allows programmatic scroll */
 #text-wrap{
-  position:relative;
-  z-index:3;
-  height:100%;
-  overflow-y:scroll;
-  overflow-x:hidden;
-  -ms-overflow-style:none;
-  scrollbar-width:none;
+  position:relative;z-index:3;height:100%;
+  overflow-y:scroll;overflow-x:hidden;
+  -ms-overflow-style:none;scrollbar-width:none;
 }
 #text-wrap::-webkit-scrollbar{display:none}
 
 #screen-text{
   font-family:'VT323',monospace;
   font-size:clamp(13px,2vw,17px);
-  line-height:1.55;
-  color:#c88c14;
+  line-height:1.55;color:#c88c14;
   text-shadow:0 0 8px rgba(200,130,10,0.6),0 0 2px rgba(200,130,10,0.4);
-  white-space:pre-wrap;
-  word-break:break-word;
+  white-space:pre-wrap;word-break:break-word;
 }
-
 #cursor{
-  display:inline-block;
-  color:#e8a828;
+  display:inline-block;color:#e8a828;
   text-shadow:0 0 10px rgba(230,160,20,0.9);
   animation:blink 1.1s step-end infinite;
 }
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-/* Monitor base & controls */
 .monitor-base{
   background:linear-gradient(180deg,#b8a878 0%,#a89868 60%,#988858 100%);
   border-radius:0 0 18px 18px;
-  height:58px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
+  height:58px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 28px;
   box-shadow:0 4px 16px rgba(0,0,0,0.6),inset 0 1px 3px rgba(255,255,255,0.15);
 }
 .monitor-brand{
-  font-family:'Share Tech Mono',monospace;
-  font-size:9px;
-  letter-spacing:3px;
-  color:#786848;
-  text-transform:uppercase;
+  font-family:'Share Tech Mono',monospace;font-size:9px;
+  letter-spacing:3px;color:#786848;text-transform:uppercase;
 }
 .monitor-controls{display:flex;gap:10px;align-items:center}
-.btn-circle{
-  width:12px;height:12px;
-  border-radius:50%;
-  box-shadow:inset 0 1px 2px rgba(0,0,0,0.5),0 1px 1px rgba(255,255,255,0.15);
-}
+.btn-circle{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 1px 2px rgba(0,0,0,0.5),0 1px 1px rgba(255,255,255,0.15)}
 .btn-power{background:radial-gradient(circle at 40% 35%,#4a8a4a,#1a4a1a);box-shadow:0 0 6px rgba(40,140,40,0.5),inset 0 1px 2px rgba(0,0,0,0.4)}
 .btn-amber{background:radial-gradient(circle at 40% 35%,#c88010,#7a4a00)}
 .btn-grey {background:radial-gradient(circle at 40% 35%,#888,#444)}
 
-/* Ventilation slots */
-.monitor-vents{
-  display:flex;gap:4px;
-  position:absolute;
-  right:44px;bottom:10px;
-}
-.vent{width:28px;height:4px;background:rgba(0,0,0,0.25);border-radius:2px}
-
-/* Skip button */
 #skip-btn{
-  position:fixed;
-  bottom:28px;right:36px;
-  z-index:200;
-  font-family:'Share Tech Mono',monospace;
-  font-size:11px;
-  letter-spacing:2px;
-  color:#5a4020;
-  background:none;
-  border:1px solid #3a2810;
-  padding:6px 14px;
-  cursor:pointer;
-  text-transform:uppercase;
+  position:fixed;bottom:28px;right:36px;z-index:200;
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  letter-spacing:2px;color:#5a4020;
+  background:none;border:1px solid #3a2810;padding:6px 14px;
+  cursor:pointer;text-transform:uppercase;
   transition:color .2s,border-color .2s;
 }
 #skip-btn:hover{color:#b87828;border-color:#b87828}
 
 /* ── FLASH TRANSITION ───────────────────────────────────── */
 #flash{
-  position:fixed;inset:0;
-  background:#fff;
-  opacity:0;pointer-events:none;
-  z-index:500;
+  position:fixed;inset:0;background:#fff;
+  opacity:0;pointer-events:none;z-index:500;
   transition:opacity 0.08s ease;
 }
 #flash.on{opacity:0.7}
 
-/* ── PHASE 2 — CASE FILE ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   PHASE 2 — CASE FILE  (full redesign)
+   ═══════════════════════════════════════════════════════════ */
 #case-file{
-  display:none;
-  opacity:0;
+  display:none;opacity:0;
   transition:opacity 1.4s ease;
   width:100%;min-height:100vh;
-  background:#080604;
+  background:
+    radial-gradient(ellipse at 8% 15%,  rgba(100,62,18,0.40) 0%,transparent 38%),
+    radial-gradient(ellipse at 92% 8%,  rgba(80,48,12,0.32)  0%,transparent 32%),
+    radial-gradient(ellipse at 55% 95%, rgba(90,55,14,0.28)  0%,transparent 42%),
+    radial-gradient(ellipse at 78% 58%, rgba(65,40,8,0.22)   0%,transparent 28%),
+    radial-gradient(ellipse at 22% 70%, rgba(75,46,10,0.20)  0%,transparent 35%),
+    #1c1208;
   font-family:'Share Tech Mono',monospace;
 }
 #case-file.visible{opacity:1}
 
-/* Sticky case header */
+/* ── TOP BAR ─────────────────────────────────────────────── */
 .case-header{
-  position:sticky;
-  top:0;z-index:50;
-  background:rgba(8,6,4,0.97);
-  border-bottom:1px solid #2a2010;
-  padding:18px 40px 14px;
-  display:flex;
-  align-items:baseline;
-  gap:28px;
-  backdrop-filter:blur(4px);
+  position:sticky;top:0;z-index:50;
+  background:rgba(6,4,2,0.97);
+  border-bottom:2px solid #3a2008;
+  padding:13px 28px;
+  display:flex;align-items:center;gap:20px;
+  backdrop-filter:blur(8px);
+  height:54px;
 }
 .case-no{
-  font-family:'VT323',monospace;
-  font-size:13px;
-  letter-spacing:3px;
-  color:#5a4820;
-  text-transform:uppercase;
+  font-family:'VT323',monospace;font-size:12px;
+  letter-spacing:3px;color:#4a3010;text-transform:uppercase;
+  white-space:nowrap;
 }
 .case-victim{
   font-family:'Special Elite',serif;
-  font-size:clamp(20px,3.5vw,30px);
-  color:#d4921c;
-  letter-spacing:2px;
-  text-shadow:0 0 20px rgba(200,130,10,0.3);
+  font-size:clamp(16px,2.4vw,22px);
+  color:#e0a018;letter-spacing:3px;
+  text-shadow:0 0 28px rgba(200,140,10,0.45);
   flex:1;
 }
 .case-status{
-  font-family:'VT323',monospace;
-  font-size:16px;
-  letter-spacing:3px;
-  color:#8a2010;
-  border:1px solid #5a1808;
-  padding:3px 10px;
+  font-family:'VT323',monospace;font-size:14px;
+  letter-spacing:4px;color:#c02010;
+  border:1px solid #801008;padding:4px 12px;
+  text-transform:uppercase;white-space:nowrap;
+  animation:pulse-red 3s ease-in-out infinite;
+}
+@keyframes pulse-red{
+  0%,100%{border-color:#801008;color:#c02010;box-shadow:none}
+  50%{border-color:#c03018;color:#e03020;box-shadow:0 0 8px rgba(180,20,10,0.3)}
+}
+
+/* ── BODY LAYOUT ─────────────────────────────────────────── */
+.case-body{display:flex;min-height:calc(100vh - 54px)}
+
+/* ── SIDEBAR NAV ─────────────────────────────────────────── */
+.case-nav{
+  width:188px;flex-shrink:0;
+  position:sticky;top:54px;
+  height:calc(100vh - 54px);
+  overflow-y:auto;
+  background:rgba(5,3,1,0.88);
+  border-right:1px solid #251505;
+  padding:24px 0 60px;
+  -ms-overflow-style:none;scrollbar-width:none;
+}
+.case-nav::-webkit-scrollbar{display:none}
+
+.nav-group-label{
+  font-size:7px;letter-spacing:4px;color:#2e1c06;
+  text-transform:uppercase;padding:0 18px 10px;
+  border-bottom:1px solid #1a0e02;margin-bottom:14px;
+}
+.nav-link{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 18px;text-decoration:none;
+  font-size:8.5px;letter-spacing:1.5px;color:#4a3212;
+  text-transform:uppercase;
+  transition:color .18s,background .18s,border-left-color .18s;
+  border-left:2px solid transparent;line-height:1.4;
+}
+.nav-link:hover{
+  color:#e0a828;background:rgba(90,55,8,0.18);
+  border-left-color:#e0a828;
+}
+.nav-dot{
+  width:7px;height:7px;border-radius:50%;flex-shrink:0;
+  background:var(--dc,#4a3212);
+  transition:background .18s;
+}
+.nav-link:hover .nav-dot{background:var(--dh,#e0a828)}
+.nav-count{
+  margin-left:auto;font-size:7.5px;
+  color:#2e1c06;opacity:.8;
+}
+.nav-divider{
+  height:1px;background:#140a01;
+  margin:10px 18px;
+}
+.nav-case-info{
+  padding:20px 18px 0;
+  font-size:7px;letter-spacing:1.5px;
+  color:#2a1806;line-height:2;
   text-transform:uppercase;
 }
-.case-note{
-  font-size:10px;
-  letter-spacing:1px;
-  color:#4a3818;
-  padding:6px 40px 8px;
-  background:rgba(8,6,4,0.97);
-  border-bottom:1px solid #1a1408;
-  font-style:italic;
+
+/* ── MAIN CONTENT ────────────────────────────────────────── */
+.case-main{
+  flex:1;padding:44px 48px 110px;min-width:0;
 }
 
-/* Document sections */
-.file-body{padding:32px 40px 80px;max-width:1400px;margin:0 auto}
-
-.doc-section{margin-bottom:44px}
-
+/* ── SECTION HEADERS ─────────────────────────────────────── */
+.doc-section{
+  margin-bottom:68px;
+  scroll-margin-top:70px;
+}
+.section-head{
+  display:flex;align-items:center;
+  gap:0;margin-bottom:32px;
+}
 .section-tab{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:7px 18px 6px;
-  margin-bottom:16px;
-  font-family:'Share Tech Mono',monospace;
-  font-size:11px;
-  letter-spacing:3px;
+  font-family:'Special Elite',serif;
+  font-size:9.5px;letter-spacing:3px;
   text-transform:uppercase;
-  border-radius:4px 4px 0 0;
-  position:relative;
+  color:var(--tc,#c88c14);
+  background:rgba(0,0,0,0.5);
+  border:1px solid var(--tc,#c88c14);
+  border-right:none;
+  padding:5px 14px 4px;
+  white-space:nowrap;
+  opacity:.85;
 }
-.section-tab::after{
-  content:'';
-  position:absolute;
-  bottom:-1px;left:0;right:0;height:1px;
-  background:inherit;
-}
-.tab-me   {background:#1a1404;color:#c88c14;border:1px solid #3a2c08;border-bottom:none}
-.tab-photo{background:#130c0c;color:#c03020;border:1px solid #3a1010;border-bottom:none}
-.tab-ws   {background:#090e18;color:#4880d0;border:1px solid #182848;border-bottom:none}
-.tab-pr   {background:#0a140c;color:#40a048;border:1px solid #183820;border-bottom:none}
-.tab-coc  {background:#101010;color:#909090;border:1px solid #303030;border-bottom:none}
-.tab-corr {background:#100c18;color:#9060c8;border:1px solid #301848;border-bottom:none}
-.tab-seal {background:#180808;color:#e03020;border:1px solid #501010;border-bottom:none}
-
 .section-rule{
-  border:none;
-  border-top:1px solid;
-  margin-bottom:20px;
+  flex:1;height:1px;
+  background:linear-gradient(90deg,var(--tc,#c88c14) 0%,transparent 100%);
+  opacity:.25;border:none;margin:0;
 }
-.rule-me   {border-color:#2a1e06}
-.rule-photo{border-color:#2a1010}
-.rule-ws   {border-color:#101828}
-.rule-pr   {border-color:#101e10}
-.rule-coc  {border-color:#202020}
-.rule-corr {border-color:#180f28}
-.rule-seal {border-color:#2a0808}
+.section-count{
+  font-size:7.5px;letter-spacing:2px;
+  color:var(--tc,#c88c14);opacity:.35;
+  padding:0 10px;white-space:nowrap;
+}
 
-/* Document cards */
+/* ── DOCUMENT CARDS — look like real papers ──────────────── */
 .doc-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
-  gap:14px;
+  gap:36px 28px;
+  padding-top:12px;
 }
 .doc-card{
-  background:#0e0c08;
-  border:1px solid #2a2010;
-  border-radius:3px;
-  padding:14px 16px 12px;
-  cursor:pointer;
-  text-decoration:none;
-  display:block;
-  transition:background .15s,border-color .15s,transform .12s;
+  display:block;text-decoration:none;
+  background:linear-gradient(170deg,#f8f3e6 0%,#f2ead8 100%);
+  color:#1a1208;border-radius:1px;
+  padding:24px 18px 16px;
   position:relative;
-  overflow:hidden;
+  transform:rotate(var(--rot,0deg));
+  box-shadow:
+    3px 6px 18px rgba(0,0,0,0.65),
+    1px 2px 5px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(0,0,0,0.05);
+  transition:transform .22s ease,box-shadow .22s ease,z-index 0s;
+  cursor:pointer;z-index:1;
 }
+/* Tape strip across top */
 .doc-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;height:3px;
+  content:'';position:absolute;
+  top:-11px;left:50%;
+  transform:translateX(-50%) rotate(var(--tr,0.8deg));
+  width:54px;height:20px;
+  background:rgba(215,188,118,0.52);
+  border-radius:1px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.22);
+}
+/* Color accent stripe on left */
+.doc-card::after{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
   background:var(--accent,#c88c14);
-  opacity:0.7;
+  border-radius:1px 0 0 1px;
+  opacity:.75;
 }
 .doc-card:hover{
-  background:#141008;
-  border-color:var(--accent,#c88c14);
-  transform:translateY(-2px);
-  box-shadow:0 6px 24px rgba(0,0,0,0.5);
+  transform:rotate(0deg) translateY(-7px) scale(1.025);
+  box-shadow:6px 14px 32px rgba(0,0,0,0.82),2px 4px 8px rgba(0,0,0,0.4);
+  z-index:20;
 }
 .doc-id{
-  font-size:9px;
-  letter-spacing:2px;
-  color:#4a3818;
-  text-transform:uppercase;
-  margin-bottom:6px;
+  font-family:'Share Tech Mono',monospace;font-size:7.5px;
+  letter-spacing:3px;color:#7a6030;
+  text-transform:uppercase;margin-bottom:7px;
+  border-bottom:1px solid rgba(0,0,0,0.09);padding-bottom:5px;
 }
 .doc-title{
-  font-family:'Special Elite',serif;
-  font-size:12.5px;
-  color:#c8a870;
-  line-height:1.4;
-  margin-bottom:8px;
+  font-family:'Special Elite',serif;font-size:13px;
+  color:#180e04;line-height:1.35;margin-bottom:9px;
 }
 .doc-desc{
-  font-size:9px;
-  color:#4a4030;
-  line-height:1.5;
-  margin-bottom:8px;
+  font-family:'Share Tech Mono',monospace;font-size:8px;
+  color:#504020;line-height:1.65;margin-bottom:10px;
 }
 .doc-pages{
-  font-size:8px;
-  letter-spacing:1px;
-  color:#3a3020;
-  text-transform:uppercase;
+  font-family:'Share Tech Mono',monospace;font-size:7px;
+  letter-spacing:2px;color:#907840;text-transform:uppercase;
+  border-top:1px solid rgba(0,0,0,0.07);padding-top:6px;
 }
-.doc-card:hover .doc-title{color:#e8c890}
 
-/* Photo grid */
+/* ── PHOTO GRID ──────────────────────────────────────────── */
 .photo-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:16px;
-}
-
-.polaroid-card{
-  background:#e8e0d0;
-  padding:10px 10px 32px;
-  box-shadow:2px 4px 16px rgba(0,0,0,0.6),inset 0 0 1px rgba(0,0,0,0.1);
-  cursor:pointer;
-  text-decoration:none;
-  display:block;
-  transition:transform .15s,box-shadow .15s;
-  transform:rotate(var(--rot,0deg));
-  position:relative;
-}
-.polaroid-card:hover{
-  transform:rotate(0deg) scale(1.05);
-  box-shadow:4px 8px 28px rgba(0,0,0,0.75);
-  z-index:2;
-}
-.polaroid-img{
-  width:100%;
-  aspect-ratio:1;
-  object-fit:cover;
-  background:#888;
-  display:block;
-}
-.polaroid-caption{
-  font-family:'Special Elite',serif;
-  font-size:10px;
-  color:#3a2a18;
-  text-align:center;
-  padding-top:8px;
-  letter-spacing:0.5px;
-}
-
-/* Sealed envelope card */
-.sealed-card{
-  grid-column:1/-1;
-  max-width:420px;
-  background:#120808;
-  border:2px solid #5a1010;
-  border-radius:3px;
-  padding:24px 28px;
-  cursor:pointer;
-  text-decoration:none;
-  display:block;
-  transition:border-color .15s,box-shadow .15s;
-  position:relative;
-  overflow:hidden;
-}
-.sealed-card:hover{
-  border-color:#c03020;
-  box-shadow:0 0 40px rgba(160,20,10,0.2);
-}
-.sealed-stamp{
-  font-family:'VT323',monospace;
-  font-size:22px;
-  letter-spacing:4px;
-  color:#c03020;
-  border:2px solid #c03020;
-  display:inline-block;
-  padding:4px 14px;
-  margin-bottom:14px;
-  opacity:0.85;
-  transform:rotate(-4deg);
-  transform-origin:left center;
-  text-shadow:0 0 12px rgba(180,20,10,0.4);
-}
-.sealed-title{
-  font-family:'Special Elite',serif;
-  font-size:15px;
-  color:#905050;
-  margin-bottom:8px;
-}
-.sealed-desc{
-  font-size:9px;
-  color:#503030;
-  line-height:1.6;
-}
-.sealed-card:hover .sealed-title{color:#c87060}
-
-/* Evidence board page cards (portrait composite images) */
-.evpage-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:20px;
-  align-items:start;
+  grid-template-columns:repeat(auto-fill,minmax(195px,1fr));
+  gap:44px 32px;
+  padding-top:12px;
 }
 .evpage-card{
-  background:#0e0c08;
-  border:1px solid #2a2010;
-  border-radius:3px;
-  overflow:hidden;
-  cursor:pointer;
-  text-decoration:none;
-  display:block;
-  transition:border-color .15s,transform .12s,box-shadow .15s;
+  display:block;text-decoration:none;
+  background:#f7f2e4;
+  padding:8px 8px 40px;
   position:relative;
+  transform:rotate(var(--rot,0deg));
+  box-shadow:4px 7px 22px rgba(0,0,0,0.72),1px 2px 5px rgba(0,0,0,0.3);
+  transition:transform .22s,box-shadow .22s;
+  cursor:zoom-in;z-index:1;
 }
+/* Tape on photo */
 .evpage-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;height:3px;
-  background:#c03020;
-  opacity:0.7;
+  content:'';position:absolute;
+  top:-10px;left:50%;
+  transform:translateX(-50%) rotate(var(--tr,-0.5deg));
+  width:46px;height:17px;
+  background:rgba(210,182,110,0.5);
+  border-radius:1px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.2);
 }
 .evpage-card:hover{
-  border-color:#c03020;
-  transform:translateY(-3px);
-  box-shadow:0 8px 28px rgba(0,0,0,0.6);
+  transform:rotate(0deg) translateY(-9px) scale(1.04);
+  box-shadow:8px 16px 38px rgba(0,0,0,0.88);z-index:20;
 }
-.evpage-img{
-  width:100%;
-  display:block;
-  object-fit:cover;
-  background:#1a1208;
-  filter:sepia(0.15) brightness(0.92);
-  transition:filter .15s;
-}
-.evpage-card:hover .evpage-img{filter:sepia(0.05) brightness(1.0)}
+.evpage-img{width:100%;display:block;filter:sepia(0.12) contrast(1.04)}
 .evpage-label{
-  padding:10px 12px 9px;
-  border-top:1px solid #1e1808;
+  position:absolute;bottom:0;left:0;right:0;
+  padding:7px 8px 9px;background:#f7f2e4;
 }
 .evpage-id{
-  font-size:9px;letter-spacing:2px;color:#4a3818;
-  text-transform:uppercase;margin-bottom:4px;
+  font-family:'Share Tech Mono',monospace;font-size:7px;
+  letter-spacing:2px;color:#806828;
+  text-transform:uppercase;margin-bottom:2px;
 }
 .evpage-title{
-  font-family:'Special Elite',serif;
-  font-size:11.5px;color:#c8a870;
-  line-height:1.35;
+  font-family:'Special Elite',serif;font-size:8.5px;
+  color:#281808;line-height:1.3;
 }
-.evpage-card:hover .evpage-title{color:#e8c890}
 
-/* ── LIGHTBOX ───────────────────────────────────────────── */
-#lightbox{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(0,0,0,0.92);
-  z-index:900;
-  align-items:center;
-  justify-content:center;
+/* ── SEALED ENVELOPE ─────────────────────────────────────── */
+.sealed-grid{display:flex;justify-content:center;padding-top:12px}
+.sealed-card{
+  display:block;text-decoration:none;
+  max-width:520px;width:100%;
+  background:linear-gradient(155deg,#c9a840 0%,#b08920 35%,#9a7418 70%,#7e5c0e 100%);
+  border-radius:2px;
+  padding:44px 40px 38px;
+  position:relative;overflow:hidden;
+  box-shadow:
+    5px 9px 28px rgba(0,0,0,0.75),
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 0 -2px 0 rgba(0,0,0,0.18);
   cursor:pointer;
+  transition:transform .25s,box-shadow .25s;
+  transform:rotate(-0.4deg);
+}
+/* Envelope top-flap crease */
+.sealed-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;
+  height:55%;
+  background:linear-gradient(175deg,rgba(180,140,20,0.35) 0%,transparent 50%);
+  clip-path:polygon(0 0,100% 0,50% 54%);
+}
+/* Corner shadow lines */
+.sealed-card::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(135deg,transparent 49.4%,rgba(0,0,0,0.06) 49.4%,rgba(0,0,0,0.06) 50.2%,transparent 50.2%),
+    linear-gradient(225deg,transparent 49.4%,rgba(0,0,0,0.06) 49.4%,rgba(0,0,0,0.06) 50.2%,transparent 50.2%);
+  pointer-events:none;
+}
+.sealed-card:hover{
+  transform:rotate(0deg) translateY(-5px);
+  box-shadow:8px 18px 44px rgba(0,0,0,0.88);
+}
+.sealed-stamp{
+  font-family:'Special Elite',serif;
+  font-size:28px;letter-spacing:7px;
+  color:rgba(150,8,4,0.88);
+  text-transform:uppercase;text-align:center;
+  border:3px solid rgba(140,8,4,0.72);
+  padding:7px 18px;
+  display:inline-block;
+  transform:rotate(-5.5deg);
+  position:relative;z-index:2;
+  margin-bottom:22px;
+  box-shadow:0 0 0 1px rgba(140,8,4,0.25),inset 0 0 20px rgba(140,8,4,0.08);
+}
+.sealed-title{
+  font-family:'Share Tech Mono',monospace;font-size:9.5px;
+  letter-spacing:1.5px;color:#221404;
+  text-transform:uppercase;margin-bottom:14px;
+  position:relative;z-index:2;line-height:1.65;
+}
+.sealed-desc{
+  font-family:'Share Tech Mono',monospace;font-size:8.5px;
+  color:#382008;line-height:1.75;
+  position:relative;z-index:2;
+}
+
+/* ── LIGHTBOX ────────────────────────────────────────────── */
+#lightbox{
+  display:none;position:fixed;inset:0;z-index:700;
+  background:rgba(0,0,0,0.94);
+  align-items:center;justify-content:center;
 }
 #lightbox.open{display:flex}
-#lightbox img{
-  max-width:90vw;max-height:90vh;
-  box-shadow:0 0 80px rgba(0,0,0,0.9);
-}
+#lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
 #lb-close{
   position:absolute;top:20px;right:28px;
   font-family:'Share Tech Mono',monospace;
-  font-size:12px;letter-spacing:2px;
-  color:#6a5030;
+  font-size:12px;letter-spacing:2px;color:#6a5030;
   background:none;border:none;cursor:pointer;
 }
 #lb-close:hover{color:#c88c14}
 
-/* ── PDF MODAL ─────────────────────────────────────────────── */
+/* ── PDF MODAL ───────────────────────────────────────────── */
 #pdf-modal{
   display:none;position:fixed;inset:0;z-index:800;
   background:#050403;flex-direction:column;
@@ -541,8 +485,8 @@ body{
 #pdf-back{
   font-family:'Share Tech Mono',monospace;font-size:11px;
   letter-spacing:2px;color:#c88c14;
-  background:none;border:1px solid #3a2810;padding:6px 16px;cursor:pointer;
-  text-transform:uppercase;
+  background:none;border:1px solid #3a2810;padding:6px 16px;
+  cursor:pointer;text-transform:uppercase;
 }
 #pdf-back:hover{color:#e8c870;border-color:#c88c14}
 #pdf-label{
@@ -587,261 +531,378 @@ body{
 <!-- ── CASE FILE ─────────────────────────────────────────── -->
 <div id="case-file">
 
+  <!-- TOP BAR -->
   <div class="case-header">
     <div class="case-no">Case 2015-ME-0447 &nbsp;/&nbsp; SFPD-2015-48801</div>
     <div class="case-victim">MARSH, Eleanor Anne</div>
     <div class="case-status">Cold Case</div>
   </div>
-  <div class="case-note">
-    Photocopies provided by Det. J.R. Brewer (ret.). Originals in Minnehaha County evidence storage.
-    &nbsp;&nbsp;·&nbsp;&nbsp; DOB: 03/22/1969 &nbsp;·&nbsp; Age: 46 &nbsp;·&nbsp; Date of death: October 14, 2015
-    &nbsp;&nbsp;·&nbsp;&nbsp; Cause / Manner: UNDETERMINED (final report Nov. 22, 2015)
-  </div>
 
-  <div class="file-body">
+  <div class="case-body">
 
-    <!-- ME FILE -->
-    <div class="doc-section">
-      <div class="section-tab tab-me">⬡ Medical Examiner's File &nbsp;·&nbsp; 9 documents</div>
-      <hr class="section-rule rule-me">
-      <div class="doc-grid">
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-01-Intake-Face-Sheet.pdf">
-          <div class="doc-id">ME-01</div>
-          <div class="doc-title">Case Intake Face Sheet</div>
-          <div class="doc-desc">Administrative intake — decedent ID, location, jurisdiction, body receipt summary.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-02-Death-Investigation-Report.pdf">
-          <div class="doc-id">ME-02</div>
-          <div class="doc-title">Death Investigation Report</div>
-          <div class="doc-desc">Full investigator narrative — scene, discovery, witness sources, chronology. 5 pages.</div>
-          <div class="doc-pages">5 pages</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-03-Body-Receipt-Transport-Record.pdf">
-          <div class="doc-id">ME-03</div>
-          <div class="doc-title">Body Receipt &amp; Transport Record</div>
-          <div class="doc-desc">Scene release, transport run, ME facility receipt and seal documentation.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-04-Personal-Effects-Property-Inventory.pdf">
-          <div class="doc-id">ME-04</div>
-          <div class="doc-title">Personal Effects Inventory</div>
-          <div class="doc-desc">Clothing, jewelry, and purse contents documented at intake. 14 items catalogued.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-05-Autopsy-Report.pdf">
-          <div class="doc-id">ME-05</div>
-          <div class="doc-title">Autopsy Report</div>
-          <div class="doc-desc">Full narrative autopsy — external, internal, organ weights, histology plan. Cause deferred.</div>
-          <div class="doc-pages">7 pages</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-06-Specimen-Evidence-Retained-Sheet.pdf">
-          <div class="doc-id">ME-06</div>
-          <div class="doc-title">Specimen / Evidence Retained</div>
-          <div class="doc-desc">19 specimens collected — blood, vitreous, urine, tissue blocks, hair, gastric contents.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-07-Toxicology-Submission-Form.pdf">
-          <div class="doc-id">ME-07</div>
-          <div class="doc-title">Toxicology Submission Form</div>
-          <div class="doc-desc">10 analysis categories requested — comprehensive screen, heavy metals, volatiles, cyanide, hair segmental.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-08-Toxicology-Report.pdf">
-          <div class="doc-id">ME-08</div>
-          <div class="doc-title">Toxicology Report</div>
-          <div class="doc-desc">Lab results — key findings WITHHELD pending pathologist correlation. Negative panel listed.</div>
-          <div class="doc-pages">2 pages</div>
-        </a>
-        <a class="doc-card" style="--accent:#c88c14" href="case_files/ME-0447-09-Ancillary-Studies-Histology-Index.pdf">
-          <div class="doc-id">ME-09</div>
-          <div class="doc-title">Ancillary Studies &amp; Histology Index</div>
-          <div class="doc-desc">20 tissue blocks, photography archive, dictation log, QC records. Brain sections pending.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
+    <!-- SIDEBAR NAV -->
+    <nav class="case-nav">
+      <div class="nav-group-label">Case Documents</div>
+
+      <a class="nav-link" href="#sec-me" style="--dc:#b87c10;--dh:#e8c040">
+        <span class="nav-dot"></span>ME File<span class="nav-count">9</span>
+      </a>
+      <a class="nav-link" href="#sec-photo" style="--dc:#a02818;--dh:#d04030">
+        <span class="nav-dot"></span>Photos &amp; Diagram<span class="nav-count">5</span>
+      </a>
+      <a class="nav-link" href="#sec-ws" style="--dc:#3060a8;--dh:#5898e0">
+        <span class="nav-dot"></span>Witness Statements<span class="nav-count">7</span>
+      </a>
+      <a class="nav-link" href="#sec-pr" style="--dc:#287830;--dh:#40b050">
+        <span class="nav-dot"></span>Police Reports<span class="nav-count">2</span>
+      </a>
+      <a class="nav-link" href="#sec-coc" style="--dc:#606060;--dh:#a0a0a0">
+        <span class="nav-dot"></span>Chain of Custody<span class="nav-count">1</span>
+      </a>
+      <a class="nav-link" href="#sec-corr" style="--dc:#6040a8;--dh:#9068d8">
+        <span class="nav-dot"></span>Correspondence<span class="nav-count">3</span>
+      </a>
+
+      <div class="nav-divider"></div>
+
+      <a class="nav-link" href="#sec-seal" style="--dc:#a02018;--dh:#d03020">
+        <span class="nav-dot"></span>Sealed Envelope
+      </a>
+
+      <div class="nav-case-info">
+        DOB: 03/22/1969<br>
+        Age at death: 46<br>
+        DOD: Oct 14, 2015<br>
+        <br>
+        Suite 712<br>
+        4200 S. Western Ave<br>
+        Sioux Falls, SD<br>
+        <br>
+        Manner: Undetermined<br>
+        (Final: Nov 22, 2015)
       </div>
-    </div>
+    </nav>
 
-    <!-- CRIME SCENE PHOTOS -->
-    <div class="doc-section">
-      <div class="section-tab tab-photo">⬡ Crime Scene Photographs &nbsp;·&nbsp; 4 photo pages + floor plan</div>
-      <hr class="section-rule rule-photo">
-      <div class="evpage-grid">
+    <!-- MAIN CONTENT -->
+    <div class="case-main">
 
-        <a class="evpage-card" href="case_files/photos/ME-0447-CS-01-03.jpg" onclick="lightbox(event,this)">
-          <img class="evpage-img" src="case_files/photos/ME-0447-CS-01-03.jpg" alt="Crime Scene Photos CS-01 to CS-03">
-          <div class="evpage-label">
-            <div class="evpage-id">CS-01 / CS-02 / CS-03</div>
-            <div class="evpage-title">Crime Scene — Room, Desk Surface &amp; Decedent</div>
-          </div>
-        </a>
+      <!-- ── ME FILE ── -->
+      <div class="doc-section" id="sec-me" style="--tc:#c88c14">
+        <div class="section-head">
+          <div class="section-tab">Medical Examiner's File</div>
+          <hr class="section-rule">
+          <div class="section-count">9 documents</div>
+        </div>
+        <div class="doc-grid">
 
-        <a class="evpage-card" href="case_files/photos/ME-0447-CS-04-05.jpg" onclick="lightbox(event,this)">
-          <img class="evpage-img" src="case_files/photos/ME-0447-CS-04-05.jpg" alt="Crime Scene Photos CS-04 to CS-05">
-          <div class="evpage-label">
-            <div class="evpage-id">CS-04 / CS-05</div>
-            <div class="evpage-title">Crime Scene — Entry Door &amp; Desk Lamp</div>
-          </div>
-        </a>
+          <a class="doc-card" style="--accent:#c88c14;--rot:-1.2deg;--tr:1.4deg"
+             href="case_files/ME-0447-01-Intake-Face-Sheet.pdf">
+            <div class="doc-id">ME-01</div>
+            <div class="doc-title">Case Intake Face Sheet</div>
+            <div class="doc-desc">Administrative intake — decedent ID, location, jurisdiction, body receipt summary.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
 
-        <a class="evpage-card" href="case_files/photos/ME-0447-EV-ABC.jpg" onclick="lightbox(event,this)">
-          <img class="evpage-img" src="case_files/photos/ME-0447-EV-ABC.jpg" alt="Evidence Photos EV-A EV-B EV-C">
-          <div class="evpage-label">
-            <div class="evpage-id">EV-A / EV-B / EV-C</div>
-            <div class="evpage-title">Evidence — Coffee Mug, Notepad &amp; Handbag</div>
-          </div>
-        </a>
+          <a class="doc-card" style="--accent:#c88c14;--rot:0.7deg;--tr:-1.1deg"
+             href="case_files/ME-0447-02-Death-Investigation-Report.pdf">
+            <div class="doc-id">ME-02</div>
+            <div class="doc-title">Death Investigation Report</div>
+            <div class="doc-desc">Full investigator narrative — scene, discovery, witness sources, chronology.</div>
+            <div class="doc-pages">5 pages</div>
+          </a>
 
-        <a class="evpage-card" href="case_files/photos/ME-0447-EV-D.jpg" onclick="lightbox(event,this)">
-          <img class="evpage-img" src="case_files/photos/ME-0447-EV-D.jpg" alt="Evidence Photo EV-D">
-          <div class="evpage-label">
-            <div class="evpage-id">EV-D</div>
-            <div class="evpage-title">Evidence — Blouse Stain Detail</div>
-          </div>
-        </a>
+          <a class="doc-card" style="--accent:#c88c14;--rot:-0.5deg;--tr:0.6deg"
+             href="case_files/ME-0447-03-Body-Receipt-Transport-Record.pdf">
+            <div class="doc-id">ME-03</div>
+            <div class="doc-title">Body Receipt &amp; Transport Record</div>
+            <div class="doc-desc">Scene release, transport run, ME facility receipt and seal documentation.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
 
-        <a class="doc-card" style="--accent:#c03020" href="case_files/photos/ME-0447-SD-01-Scene-Diagram.pdf">
-          <div class="doc-id">SD-01</div>
-          <div class="doc-title">Suite 712 — Scene Diagram</div>
-          <div class="doc-desc">Hand-sketched floor plan. Evidence markers A–E. Body position marked. Dimensions annotated.</div>
-          <div class="doc-pages">1 page · PDF</div>
-        </a>
+          <a class="doc-card" style="--accent:#c88c14;--rot:1.1deg;--tr:-0.8deg"
+             href="case_files/ME-0447-04-Personal-Effects-Property-Inventory.pdf">
+            <div class="doc-id">ME-04</div>
+            <div class="doc-title">Personal Effects Inventory</div>
+            <div class="doc-desc">Clothing, jewelry, and purse contents documented at intake. 14 items catalogued.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
 
+          <a class="doc-card" style="--accent:#c88c14;--rot:-0.9deg;--tr:1.2deg"
+             href="case_files/ME-0447-05-Autopsy-Report.pdf">
+            <div class="doc-id">ME-05</div>
+            <div class="doc-title">Autopsy Report</div>
+            <div class="doc-desc">Full narrative autopsy — external, internal, organ weights, histology plan. Cause deferred.</div>
+            <div class="doc-pages">7 pages</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#c88c14;--rot:0.4deg;--tr:-0.6deg"
+             href="case_files/ME-0447-06-Specimen-Evidence-Retained-Sheet.pdf">
+            <div class="doc-id">ME-06</div>
+            <div class="doc-title">Specimen / Evidence Retained</div>
+            <div class="doc-desc">19 specimens collected — blood, vitreous, urine, tissue blocks, hair, gastric contents.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#c88c14;--rot:-1.4deg;--tr:0.9deg"
+             href="case_files/ME-0447-07-Toxicology-Submission-Form.pdf">
+            <div class="doc-id">ME-07</div>
+            <div class="doc-title">Toxicology Submission Form</div>
+            <div class="doc-desc">10 analysis categories requested — comprehensive screen, heavy metals, volatiles, cyanide, hair segmental.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#c88c14;--rot:0.8deg;--tr:-1.3deg"
+             href="case_files/ME-0447-08-Toxicology-Report.pdf">
+            <div class="doc-id">ME-08</div>
+            <div class="doc-title">Toxicology Report</div>
+            <div class="doc-desc">Lab results — key findings WITHHELD pending pathologist correlation. Negative panel listed.</div>
+            <div class="doc-pages">2 pages</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#c88c14;--rot:-0.6deg;--tr:0.7deg"
+             href="case_files/ME-0447-09-Ancillary-Studies-Histology-Index.pdf">
+            <div class="doc-id">ME-09</div>
+            <div class="doc-title">Ancillary Studies &amp; Histology Index</div>
+            <div class="doc-desc">20 tissue blocks, photography archive, dictation log, QC records. Brain sections pending.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-    <!-- WITNESS STATEMENTS -->
-    <div class="doc-section">
-      <div class="section-tab tab-ws">⬡ Witness Statements &nbsp;·&nbsp; 7 documents</div>
-      <hr class="section-rule rule-ws">
-      <div class="doc-grid">
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-01-Fuentes-Interview-Transcript.pdf">
-          <div class="doc-id">WS-01</div>
-          <div class="doc-title">Ramon Fuentes — Interview</div>
-          <div class="doc-desc">IT contractor. Found the body. Badge card anomaly — his card used at 22:47. He denies it.</div>
-          <div class="doc-pages">2 pages · Transcript</div>
-        </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-02-Molander-Interview-Transcript.pdf">
-          <div class="doc-id">WS-02</div>
-          <div class="doc-title">Linda Molander — Interview</div>
-          <div class="doc-desc">Office manager. Unknown visitor on Oct. 13. Wrong coffee in the mug. Car stayed overnight.</div>
-          <div class="doc-pages">2 pages · Transcript</div>
-        </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-03-Ellsworth-Written-Statement.pdf">
-          <div class="doc-id">WS-03</div>
-          <div class="doc-title">Craig Ellsworth — Statement</div>
-          <div class="doc-desc">COO — Marsh's superior. Last to see her alive. Refuses to characterize her 11:47 PM email. With counsel.</div>
-          <div class="doc-pages">1 page · Written (w/ counsel)</div>
-        </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-04-Kowalski-Interview-Transcript.pdf">
-          <div class="doc-id">WS-04</div>
-          <div class="doc-title">Diane Kowalski — Interview</div>
-          <div class="doc-desc">Marsh's assistant. The visitor 'Vren.' The missing USB drive. "Things here are not what they appear to be."</div>
-          <div class="doc-pages">2 pages · Transcript</div>
-        </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-05-Herne-Written-Statement.pdf">
-          <div class="doc-id">WS-05</div>
-          <div class="doc-title">Patrick Herne — Statement</div>
-          <div class="doc-desc">Night security. Badge log: Fuentes card at 22:47. Herne was away from desk 22 minutes.</div>
-          <div class="doc-pages">1 page · Written</div>
-        </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-06-Solis-Written-Statement.pdf">
-          <div class="doc-id">WS-06</div>
-          <div class="doc-title">Victor Solis — Statement</div>
-          <div class="doc-desc">Building manager. 7th floor camera offline 3 days. Contractor card cannot open Suite 712.</div>
-          <div class="doc-pages">1 page · Written</div>
-        </a>
-        <a class="doc-card" style="--accent:#4880d0" href="case_files/WS-07-Taft-Phone-Interview-Transcript.pdf">
-          <div class="doc-id">WS-07</div>
-          <div class="doc-title">Dr. Susan Taft — Phone Interview</div>
-          <div class="doc-desc">Treating physician. Lisinopril. Elevated BP. Cardiology referral never followed up. Cryptic medication remark.</div>
-          <div class="doc-pages">2 pages · Transcript</div>
-        </a>
+      <!-- ── CRIME SCENE PHOTOS ── -->
+      <div class="doc-section" id="sec-photo" style="--tc:#c03020">
+        <div class="section-head">
+          <div class="section-tab">Crime Scene Photographs &amp; Diagram</div>
+          <hr class="section-rule">
+          <div class="section-count">4 photo pages + floor plan</div>
+        </div>
+        <div class="photo-grid">
+
+          <a class="evpage-card" style="--rot:-1.5deg;--tr:1.0deg"
+             href="case_files/photos/ME-0447-CS-01-03.jpg" onclick="lightbox(event,this)">
+            <img class="evpage-img" src="case_files/photos/ME-0447-CS-01-03.jpg" alt="Crime Scene Photos CS-01 to CS-03">
+            <div class="evpage-label">
+              <div class="evpage-id">CS-01 / CS-02 / CS-03</div>
+              <div class="evpage-title">Crime Scene — Room, Desk Surface &amp; Decedent</div>
+            </div>
+          </a>
+
+          <a class="evpage-card" style="--rot:1.2deg;--tr:-0.8deg"
+             href="case_files/photos/ME-0447-CS-04-05.jpg" onclick="lightbox(event,this)">
+            <img class="evpage-img" src="case_files/photos/ME-0447-CS-04-05.jpg" alt="Crime Scene Photos CS-04 to CS-05">
+            <div class="evpage-label">
+              <div class="evpage-id">CS-04 / CS-05</div>
+              <div class="evpage-title">Crime Scene — Entry Door &amp; Desk Lamp</div>
+            </div>
+          </a>
+
+          <a class="evpage-card" style="--rot:-0.8deg;--tr:1.3deg"
+             href="case_files/photos/ME-0447-EV-ABC.jpg" onclick="lightbox(event,this)">
+            <img class="evpage-img" src="case_files/photos/ME-0447-EV-ABC.jpg" alt="Evidence Photos EV-A EV-B EV-C">
+            <div class="evpage-label">
+              <div class="evpage-id">EV-A / EV-B / EV-C</div>
+              <div class="evpage-title">Evidence — Coffee Mug, Notepad &amp; Handbag</div>
+            </div>
+          </a>
+
+          <a class="evpage-card" style="--rot:1.6deg;--tr:-1.1deg"
+             href="case_files/photos/ME-0447-EV-D.jpg" onclick="lightbox(event,this)">
+            <img class="evpage-img" src="case_files/photos/ME-0447-EV-D.jpg" alt="Evidence Photo EV-D">
+            <div class="evpage-label">
+              <div class="evpage-id">EV-D</div>
+              <div class="evpage-title">Evidence — Blouse Stain Detail</div>
+            </div>
+          </a>
+
+          <a class="doc-card" style="--accent:#c03020;--rot:-1.0deg;--tr:0.8deg"
+             href="case_files/photos/ME-0447-SD-01-Scene-Diagram.pdf">
+            <div class="doc-id">SD-01</div>
+            <div class="doc-title">Suite 712 — Scene Diagram</div>
+            <div class="doc-desc">Hand-sketched floor plan. Evidence markers A–E. Body position marked. Dimensions annotated.</div>
+            <div class="doc-pages">1 page · PDF</div>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-    <!-- POLICE REPORTS -->
-    <div class="doc-section">
-      <div class="section-tab tab-pr">⬡ Police Reports &nbsp;·&nbsp; 2 documents</div>
-      <hr class="section-rule rule-pr">
-      <div class="doc-grid">
-        <a class="doc-card" style="--accent:#40a048" href="case_files/PR-01-Initial-Incident-Report.pdf">
-          <div class="doc-id">PR-01</div>
-          <div class="doc-title">Initial Incident Report</div>
-          <div class="doc-desc">Responding officers Williams &amp; Chandra. Scene, EMS, notifications. Action log with timestamps.</div>
-          <div class="doc-pages">2 pages</div>
-        </a>
-        <a class="doc-card" style="--accent:#40a048" href="case_files/PR-02-Detective-Case-Summary.pdf">
-          <div class="doc-id">PR-02</div>
-          <div class="doc-title">Detective Case Summary</div>
-          <div class="doc-desc">Det. Santos supplemental report. 6 investigative issues. 12 evidence items. Pending actions table.</div>
-          <div class="doc-pages">3 pages</div>
-        </a>
+      <!-- ── WITNESS STATEMENTS ── -->
+      <div class="doc-section" id="sec-ws" style="--tc:#4880d0">
+        <div class="section-head">
+          <div class="section-tab">Witness Statements</div>
+          <hr class="section-rule">
+          <div class="section-count">7 documents</div>
+        </div>
+        <div class="doc-grid">
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:0.9deg;--tr:-1.2deg"
+             href="case_files/WS-01-Fuentes-Interview-Transcript.pdf">
+            <div class="doc-id">WS-01</div>
+            <div class="doc-title">Ramon Fuentes — Interview</div>
+            <div class="doc-desc">IT contractor. Found the body. Badge card anomaly — his card used at 22:47. He denies it.</div>
+            <div class="doc-pages">2 pages · Transcript</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:-1.1deg;--tr:0.7deg"
+             href="case_files/WS-02-Molander-Interview-Transcript.pdf">
+            <div class="doc-id">WS-02</div>
+            <div class="doc-title">Linda Molander — Interview</div>
+            <div class="doc-desc">Office manager. Unknown visitor on Oct. 13. Wrong coffee in the mug. Car stayed overnight.</div>
+            <div class="doc-pages">2 pages · Transcript</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:0.5deg;--tr:-0.9deg"
+             href="case_files/WS-03-Ellsworth-Written-Statement.pdf">
+            <div class="doc-id">WS-03</div>
+            <div class="doc-title">Craig Ellsworth — Statement</div>
+            <div class="doc-desc">COO — Marsh's superior. Last to see her alive. Refuses to characterize her 11:47 PM email. With counsel.</div>
+            <div class="doc-pages">1 page · Written (w/ counsel)</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:-1.3deg;--tr:1.5deg"
+             href="case_files/WS-04-Kowalski-Interview-Transcript.pdf">
+            <div class="doc-id">WS-04</div>
+            <div class="doc-title">Diane Kowalski — Interview</div>
+            <div class="doc-desc">Marsh's assistant. The visitor 'Vren.' The missing USB drive. "Things here are not what they appear to be."</div>
+            <div class="doc-pages">2 pages · Transcript</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:1.4deg;--tr:-0.6deg"
+             href="case_files/WS-05-Herne-Written-Statement.pdf">
+            <div class="doc-id">WS-05</div>
+            <div class="doc-title">Patrick Herne — Statement</div>
+            <div class="doc-desc">Night security. Badge log: Fuentes card at 22:47. Herne was away from desk 22 minutes.</div>
+            <div class="doc-pages">1 page · Written</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:-0.7deg;--tr:1.0deg"
+             href="case_files/WS-06-Solis-Written-Statement.pdf">
+            <div class="doc-id">WS-06</div>
+            <div class="doc-title">Victor Solis — Statement</div>
+            <div class="doc-desc">Building manager. 7th floor camera offline 3 days. Contractor card cannot open Suite 712.</div>
+            <div class="doc-pages">1 page · Written</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#4880d0;--rot:0.6deg;--tr:-1.4deg"
+             href="case_files/WS-07-Taft-Phone-Interview-Transcript.pdf">
+            <div class="doc-id">WS-07</div>
+            <div class="doc-title">Dr. Susan Taft — Phone Interview</div>
+            <div class="doc-desc">Treating physician. Lisinopril. Elevated BP. Cardiology referral never followed up. Cryptic medication remark.</div>
+            <div class="doc-pages">2 pages · Transcript</div>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-    <!-- CHAIN OF CUSTODY -->
-    <div class="doc-section">
-      <div class="section-tab tab-coc">⬡ Chain of Custody &nbsp;·&nbsp; 1 document</div>
-      <hr class="section-rule rule-coc">
-      <div class="doc-grid">
-        <a class="doc-card" style="--accent:#909090" href="case_files/COC-01-Evidence-Chain-of-Custody.pdf">
-          <div class="doc-id">COC-01</div>
-          <div class="doc-title">Evidence Chain of Custody</div>
-          <div class="doc-desc">All 12 SFPD evidence items — collection, seal numbers, transfers. USB drive: NOT RECOVERED.</div>
-          <div class="doc-pages">2 pages</div>
-        </a>
+      <!-- ── POLICE REPORTS ── -->
+      <div class="doc-section" id="sec-pr" style="--tc:#40a048">
+        <div class="section-head">
+          <div class="section-tab">Police Reports</div>
+          <hr class="section-rule">
+          <div class="section-count">2 documents</div>
+        </div>
+        <div class="doc-grid">
+
+          <a class="doc-card" style="--accent:#40a048;--rot:-1.0deg;--tr:0.8deg"
+             href="case_files/PR-01-Initial-Incident-Report.pdf">
+            <div class="doc-id">PR-01</div>
+            <div class="doc-title">Initial Incident Report</div>
+            <div class="doc-desc">Responding officers Williams &amp; Chandra. Scene, EMS, notifications. Action log with timestamps.</div>
+            <div class="doc-pages">2 pages</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#40a048;--rot:1.2deg;--tr:-1.0deg"
+             href="case_files/PR-02-Detective-Case-Summary.pdf">
+            <div class="doc-id">PR-02</div>
+            <div class="doc-title">Detective Case Summary</div>
+            <div class="doc-desc">Det. Santos supplemental report. 6 investigative issues. 12 evidence items. Pending actions table.</div>
+            <div class="doc-pages">3 pages</div>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-    <!-- CORRESPONDENCE -->
-    <div class="doc-section">
-      <div class="section-tab tab-corr">⬡ Inter-Agency Correspondence &nbsp;·&nbsp; 3 documents</div>
-      <hr class="section-rule rule-corr">
-      <div class="doc-grid">
-        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-01-SFPD-to-ME-Expedited-Tox-Request.pdf">
-          <div class="doc-id">CORR-01</div>
-          <div class="doc-title">SFPD → ME Office</div>
-          <div class="doc-desc">Det. Santos requests expedited tox release and informal guidance. Oct. 16, 2015.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-02-ME-to-SFPD-Tox-Response.pdf">
-          <div class="doc-id">CORR-02</div>
-          <div class="doc-title">ME Office → SFPD</div>
-          <div class="doc-desc">Dr. Adeyemi declines both requests. "The findings are not straightforward." Oct. 19, 2015.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
-        <a class="doc-card" style="--accent:#9060c8" href="case_files/CORR-03-ME-to-DA-Suspicious-Death-Notice.pdf">
-          <div class="doc-id">CORR-03</div>
-          <div class="doc-title">ME Office → DA</div>
-          <div class="doc-desc">Chief ME Okonkwo formally notifies DA. Flags financial crimes angle. Oct. 15, 2015.</div>
-          <div class="doc-pages">1 page</div>
-        </a>
+      <!-- ── CHAIN OF CUSTODY ── -->
+      <div class="doc-section" id="sec-coc" style="--tc:#909090">
+        <div class="section-head">
+          <div class="section-tab">Chain of Custody</div>
+          <hr class="section-rule">
+          <div class="section-count">1 document</div>
+        </div>
+        <div class="doc-grid">
+
+          <a class="doc-card" style="--accent:#909090;--rot:-0.8deg;--tr:1.1deg"
+             href="case_files/COC-01-Evidence-Chain-of-Custody.pdf">
+            <div class="doc-id">COC-01</div>
+            <div class="doc-title">Evidence Chain of Custody</div>
+            <div class="doc-desc">All 12 SFPD evidence items — collection, seal numbers, transfers. USB drive: NOT RECOVERED.</div>
+            <div class="doc-pages">2 pages</div>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-    <!-- SEALED ANSWER KEY -->
-    <div class="doc-section">
-      <div class="section-tab tab-seal">⬡ Sealed Envelope</div>
-      <hr class="section-rule rule-seal">
-      <div class="doc-grid">
-        <a class="sealed-card" href="case_files/ANSWER-KEY-Sealed-Solution-Document.pdf">
-          <div class="sealed-stamp">SEALED</div>
-          <div class="sealed-title">Solution Document — Do Not Open Until Your Investigation Is Complete</div>
-          <div class="sealed-desc">
-            This envelope contains the full case resolution — who did it, how, and why, with a
-            complete evidence map tracing every clue to its source.<br><br>
-            Open only when you are confident in your conclusion.<br>
-            Reading this first will permanently alter your experience of the case.
-          </div>
-        </a>
+      <!-- ── CORRESPONDENCE ── -->
+      <div class="doc-section" id="sec-corr" style="--tc:#9060c8">
+        <div class="section-head">
+          <div class="section-tab">Inter-Agency Correspondence</div>
+          <hr class="section-rule">
+          <div class="section-count">3 documents</div>
+        </div>
+        <div class="doc-grid">
+
+          <a class="doc-card" style="--accent:#9060c8;--rot:1.0deg;--tr:-1.3deg"
+             href="case_files/CORR-01-SFPD-to-ME-Expedited-Tox-Request.pdf">
+            <div class="doc-id">CORR-01</div>
+            <div class="doc-title">SFPD → ME Office</div>
+            <div class="doc-desc">Det. Santos requests expedited tox release and informal guidance. Oct. 16, 2015.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#9060c8;--rot:-1.2deg;--tr:0.9deg"
+             href="case_files/CORR-02-ME-to-SFPD-Tox-Response.pdf">
+            <div class="doc-id">CORR-02</div>
+            <div class="doc-title">ME Office → SFPD</div>
+            <div class="doc-desc">Dr. Adeyemi declines both requests. "The findings are not straightforward." Oct. 19, 2015.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
+
+          <a class="doc-card" style="--accent:#9060c8;--rot:0.7deg;--tr:-0.5deg"
+             href="case_files/CORR-03-ME-to-DA-Suspicious-Death-Notice.pdf">
+            <div class="doc-id">CORR-03</div>
+            <div class="doc-title">ME Office → DA</div>
+            <div class="doc-desc">Chief ME Okonkwo formally notifies DA. Flags financial crimes angle. Oct. 15, 2015.</div>
+            <div class="doc-pages">1 page</div>
+          </a>
+
+        </div>
       </div>
-    </div>
 
-  </div><!-- /file-body -->
+      <!-- ── SEALED ANSWER KEY ── -->
+      <div class="doc-section" id="sec-seal" style="--tc:#c03020">
+        <div class="section-head">
+          <div class="section-tab">Sealed Envelope</div>
+          <hr class="section-rule">
+          <div class="section-count">open last</div>
+        </div>
+        <div class="sealed-grid">
+          <a class="sealed-card" href="case_files/ANSWER-KEY-Sealed-Solution-Document.pdf">
+            <div class="sealed-stamp">SEALED</div>
+            <div class="sealed-title">Solution Document — Do Not Open Until Your Investigation Is Complete</div>
+            <div class="sealed-desc">
+              This envelope contains the full case resolution — who did it, how, and why, with a
+              complete evidence map tracing every clue to its source.<br><br>
+              Open only when you are confident in your conclusion.<br>
+              Reading this first will permanently alter your experience of the case.
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /case-main -->
+  </div><!-- /case-body -->
 </div><!-- /case-file -->
 
-<!-- Lightbox -->
 <!-- ── PDF MODAL ──────────────────────────────────────────── -->
 <div id="pdf-modal">
   <div id="pdf-bar">
@@ -864,7 +925,7 @@ const SEGMENTS = [
   {t:'> COLD CASE UNIT — MINNEHAHA COUNTY, SD\n',   speed:25, color:'#e8a828'},
   {t:'> INCOMING MESSAGE — PERSONAL\n',              speed:25, color:'#8a5a20'},
   {pause:700},
-  {t:'\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {t:'───────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
   {pause:1000},
   {t:'\nHey.\n',                                     speed:55},
   {pause:800},
@@ -874,20 +935,20 @@ const SEGMENTS = [
   {t:'Thirty-one years.\n',                          speed:42},
   {t:'Out at the end of next month.\n',              speed:42},
   {pause:600},
-  {t:'\nHomicide has ground me down \u2014\n',            speed:40},
+  {t:'\nHomicide has ground me down —\n',            speed:40},
   {t:'but I know I don\'t have to tell you about that.\n', speed:40},
   {pause:700},
   {t:'\nYou were the best partner I ever had\non the Sioux Falls PD.\n', speed:38},
   {pause:500},
   {t:'\nAnd I need a favor.\n',                      speed:48},
   {pause:900},
-  {t:'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {t:'\n───────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
   {pause:700},
   {t:'\nThere\'s just one case I didn\'t solve.\n',  speed:40},
   {t:'I can\'t get it out of my head.\n',            speed:40},
   {pause:500},
   {t:'\nI\'m sending over the papers.\n',            speed:40},
-  {t:'Print them out, or just pull them up on your screen \u2014\n', speed:38},
+  {t:'Print them out, or just pull them up on your screen —\n', speed:38},
   {t:'but look at them.\n',                          speed:44},
   {pause:500},
   {t:'\nI need fresh eyes. A fresh perspective.\n',  speed:40},
@@ -897,19 +958,19 @@ const SEGMENTS = [
   {t:'\nBut I\'d like to put this one to bed\n',     speed:40},
   {t:'before I clock out for the last time.\n',      speed:40},
   {pause:900},
-  {t:'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {t:'\n───────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
   {pause:800},
-  {t:'\nFor old time\'s sake \u2014 will you look at it?\n', speed:38},
+  {t:'\nFor old time\'s sake — will you look at it?\n', speed:38},
   {pause:600},
   {t:'\n    MARSH / ELEANOR ANNE / DOB 03-22-1969\n', speed:26, color:'#e8c060'},
   {t:'    CASE 2015-ME-0447 / SFPD-2015-48801\n',    speed:26, color:'#e8c060'},
   {t:'    *** COLD ***\n',                           speed:26, color:'#c03020'},
   {pause:800},
-  {t:'\n                          \u2014 Brewer\n',       speed:36, color:'#8a5a20'},
+  {t:'\n                          — Brewer\n',       speed:36, color:'#8a5a20'},
   {pause:1200},
-  {t:'\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n', speed:4, color:'#3a2810'},
+  {t:'\n───────────────────────────────────────────────\n', speed:4, color:'#3a2810'},
   {pause:600},
-  {t:'\n\u25b8  Click anywhere or press any key to open the case file.\n', speed:22, color:'#e8a828'},
+  {t:'\n▸  Click anywhere or press any key to open the case file.\n', speed:22, color:'#e8a828'},
   {done:true},
 ];
 
@@ -919,9 +980,8 @@ let segIdx     = 0;
 let charIdx    = 0;
 let baseColor  = '#c88c14';
 let curColor   = baseColor;
-let introState = 'typing'; // 'typing' | 'waiting' | 'done'
+let introState = 'typing';
 let timer      = null;
-let scrollRaf  = null;
 
 function nextChar() {
   if (segIdx >= SEGMENTS.length) return;
@@ -935,15 +995,12 @@ function nextChar() {
   }
 
   if (seg.pause !== undefined) {
-    segIdx++;
-    charIdx = 0;
+    segIdx++; charIdx = 0;
     timer = setTimeout(nextChar, seg.pause);
     return;
   }
 
   curColor = seg.color || baseColor;
-
-  if (charIdx === 0 && seg.speed !== undefined) {}
 
   if (charIdx < seg.t.length) {
     const ch = seg.t[charIdx];
@@ -953,19 +1010,14 @@ function nextChar() {
     textEl.appendChild(span);
     charIdx++;
 
-    // Keep text scrolled to bottom
-    textEl.parentElement.scrollTop = textEl.parentElement.scrollHeight;
-
-    // Auto-scroll screen div
-    const wrap = document.getElementById("text-wrap");
+    const wrap = document.getElementById('text-wrap');
     wrap.scrollTop = wrap.scrollHeight;
 
     const speed = seg.speed || 36;
     const jitter = ch === '\n' ? 60 : (Math.random() * 0.4 + 0.8) * speed;
     timer = setTimeout(nextChar, jitter);
   } else {
-    segIdx++;
-    charIdx = 0;
+    segIdx++; charIdx = 0;
     timer = setTimeout(nextChar, 10);
   }
 }
@@ -989,8 +1041,6 @@ function beginTransition() {
   introState = 'done';
   document.getElementById('skip-btn').style.display = 'none';
   const flash = document.getElementById('flash');
-
-  // Two quick flashes (CRT power-off effect)
   flash.classList.add('on');
   setTimeout(() => {
     flash.classList.remove('on');
@@ -998,9 +1048,7 @@ function beginTransition() {
       flash.classList.add('on');
       setTimeout(() => {
         flash.classList.remove('on');
-        // Fade out monitor
         document.getElementById('intro').classList.add('fade-out');
-        // Show case file
         const cf = document.getElementById('case-file');
         cf.style.display = 'block';
         document.body.style.overflowY = 'auto';
@@ -1013,21 +1061,15 @@ function beginTransition() {
 }
 
 // ── LIGHTBOX ────────────────────────────────────────────────────────────────
-
 function lightbox(e, el) {
   e.preventDefault();
   const src = el.querySelector('img').src;
   document.getElementById('lb-img').src = src;
   document.getElementById('lightbox').classList.add('open');
 }
-
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('open');
 }
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeLightbox();
-});
 
 // ── PDF MODAL ────────────────────────────────────────────────────────────────
 function openPDF(href, title) {
@@ -1052,8 +1094,9 @@ document.addEventListener('click', e => {
 });
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && document.getElementById('pdf-modal').classList.contains('open')) {
-    closePDF();
+  if (e.key === 'Escape') {
+    closeLightbox();
+    if (document.getElementById('pdf-modal').classList.contains('open')) closePDF();
   }
 });
 
@@ -1061,7 +1104,6 @@ document.addEventListener('keydown', e => {
 window.addEventListener('load', () => {
   setTimeout(nextChar, 600);
 });
-
 </script>
 </body>
 </html>
